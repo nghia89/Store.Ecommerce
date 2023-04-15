@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using Localization.Resources.AbpUi;
@@ -75,6 +75,9 @@ public class EcommerceAuthServerModule : AbpModule
                 .AddBaseTypes(
                     typeof(AbpUiResource)
                 );
+
+            options.Languages.Add(new LanguageInfo("en", "en", "English"));
+            options.Languages.Add(new LanguageInfo("vi", "vi", "Vietmamese"));
         });
 
         Configure<AbpBundlingOptions>(options =>
