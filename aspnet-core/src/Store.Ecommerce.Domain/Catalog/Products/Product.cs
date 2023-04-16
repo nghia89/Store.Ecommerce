@@ -32,6 +32,7 @@ namespace Store.Ecommerce.Catalog.Products
         public Guid ManufacturerId { get; set; }
         public bool IsShippingEnabled { get; set; }
         public bool IsFreeShipping { get; set; }
+        public bool DisableBuyButton { get; set; }
         [IgnoreDataMember]
         public bool Deleted { get; set; }
     }
