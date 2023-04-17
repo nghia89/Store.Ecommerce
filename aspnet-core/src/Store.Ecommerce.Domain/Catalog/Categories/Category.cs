@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Store.Ecommerce.Catalog.Categories
 {
-    public class Category : CreationAuditedAggregateRoot<Guid>
+    public class Category : FullAuditedAggregateRoot<Guid>
     {
         public string Name { get; set; }
         public string Code { get; set; }
@@ -21,8 +21,6 @@ namespace Store.Ecommerce.Catalog.Categories
         public bool IsActive { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
-        [IgnoreDataMember]
-        public bool Deleted { get; set; }
         public Guid? ParentId { get; set; }
         public string TreePath { get; set; } = string.Empty;
     }

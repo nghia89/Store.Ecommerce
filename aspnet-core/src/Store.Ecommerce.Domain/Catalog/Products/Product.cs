@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Store.Ecommerce.Catalog.Products
 {
-    public class Product : AuditedAggregateRoot<Guid>
+    public class Product : FullAuditedAggregateRoot<Guid>
     {
         public string Name { get; set; }
         public string Code { get; set; }
@@ -33,7 +33,5 @@ namespace Store.Ecommerce.Catalog.Products
         public bool IsShippingEnabled { get; set; }
         public bool IsFreeShipping { get; set; }
         public bool DisableBuyButton { get; set; }
-        [IgnoreDataMember]
-        public bool Deleted { get; set; }
     }
 }
