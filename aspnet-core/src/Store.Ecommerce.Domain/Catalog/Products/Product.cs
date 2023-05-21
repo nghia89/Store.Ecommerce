@@ -32,6 +32,14 @@ namespace Store.Ecommerce.Catalog.Products
         public Guid ManufacturerId { get; set; }
         public bool IsShippingEnabled { get; set; }
         public bool IsFreeShipping { get; set; }
+        /// <summary>
+        /// Gets or sets the additional shipping charge.
+        /// </summary>
+        public decimal AdditionalShippingCharge { get; set; }
+        public decimal Width { get; set; }
+        public decimal Height { get; set; }
+        public decimal Length { get; set; }
+        public decimal Weight { get; set; }
         public bool DisableBuyButton { get; set; }
     }
 }

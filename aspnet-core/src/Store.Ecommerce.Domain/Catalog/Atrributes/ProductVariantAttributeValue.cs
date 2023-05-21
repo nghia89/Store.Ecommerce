@@ -13,8 +13,6 @@ namespace Store.Ecommerce.Catalog.Atrributes
         public string Alias { get; set; }
         public string Color { get; set; }
         public int ProductVariantAttributeId { get; set; }
-        public decimal PriceAdjustment { get; set; }
         public int SortOrder { get; set; }
-        public int Quantity { get; set; }
     }
 }
