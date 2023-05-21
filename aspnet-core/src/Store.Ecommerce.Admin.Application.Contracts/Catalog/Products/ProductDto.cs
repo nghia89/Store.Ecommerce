@@ -1,18 +1,16 @@
 ﻿using Store.Ecommerce.Enum.Products;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
-using System.Threading.Tasks;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
 namespace Store.Ecommerce.Catalog.Products
 {
-    public class Product : FullAuditedAggregateRoot<Guid>
+    public class ProductDto : IEntityDto<Guid>
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
         public string Slug { get; set; }
         public string SKU { get; set; }
         public int SortOrder { get; set; }
@@ -31,9 +29,6 @@ namespace Store.Ecommerce.Catalog.Products
         public Guid ManufacturerId { get; set; }
         public bool IsShippingEnabled { get; set; }
         public bool IsFreeShipping { get; set; }
-        /// <summary>
-        /// Gets or sets the additional shipping charge.
-        /// </summary>
         public decimal AdditionalShippingCharge { get; set; }
         public decimal Width { get; set; }
         public decimal Height { get; set; }
