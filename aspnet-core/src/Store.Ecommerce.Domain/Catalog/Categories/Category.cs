@@ -12,6 +12,23 @@ namespace Store.Ecommerce.Catalog.Categories
 {
     public class Category : FullAuditedAggregateRoot<Guid>
     {
+        public Category() { }
+        public Category(Guid id, string name, string code, string slug, int sortOrder, string coverPicture, bool isFeatured, bool isActive, 
+                        string metaDescription, string metaTitle, Guid? parentId)
+        {
+            Id = id;
+            Name = name;
+            Code = code;
+            Slug = slug;
+            SortOrder = sortOrder;
+            CoverPicture = coverPicture;
+            IsFeatured = isFeatured;
+            IsActive = isActive;
+            MetaDescription = metaDescription;
+            MetaTitle = metaTitle;
+            ParentId = parentId;
+        }
+
         public string Name { get; set; }
         public string Code { get; set; }
         public string Slug { get; set; }
