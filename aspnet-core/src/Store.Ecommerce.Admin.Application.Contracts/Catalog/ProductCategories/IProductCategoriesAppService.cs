@@ -14,7 +14,6 @@ namespace Store.Ecommerce.Catalog.ProductCategories
       CreateUpdateProductCategoryDto,
       CreateUpdateProductCategoryDto>
     {
-        Task<List<ProductCategoryInListDto>> GetListAllAsync();
-        Task<PagedResultDto<ProductCategoryInListDto>> GetListFilterAsync(BaseListFilterDto input);
+        Task<List<ProductCategoryInListDto>> GetListAllAsync(string Keyword);
     }
 }

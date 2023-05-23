@@ -3,6 +3,7 @@ using Store.Ecommerce.Catalog.Categories;
 using Store.Ecommerce.Catalog.Products;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -86,14 +87,12 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             return ObjectMapper.Map<Category, ProductCategoryDto>(category);
         }
 
-        public Task<List<ProductCategoryInListDto>> GetListAllAsync()
+        public async Task<List<ProductCategoryInListDto>> GetListAllAsync(string Keyword)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<PagedResultDto<ProductCategoryInListDto>> GetListFilterAsync(BaseListFilterDto input)
-        {
-            throw new NotImplementedException();
+            var query = await Repository.GetQueryableAsync();
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(Keyword), x => x.Name.Contains(Keyword));
+            var data = await AsyncExecuter.ToListAsync(query);
+            return ObjectMapper.Map<List<Category>, List<ProductCategoryInListDto>>(data);
         }
     }
 }
