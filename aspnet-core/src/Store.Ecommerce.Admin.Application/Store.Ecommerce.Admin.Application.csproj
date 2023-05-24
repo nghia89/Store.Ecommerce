@@ -22,4 +22,10 @@
     <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="7.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Catalog\Attributes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Catalog\Attributes\" />
+  </ItemGroup>
 </Project>

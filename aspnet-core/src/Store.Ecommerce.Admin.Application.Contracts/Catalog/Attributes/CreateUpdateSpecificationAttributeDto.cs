@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Volo.Abp.Domain.Entities.Auditing;
-
-namespace Store.Ecommerce.Catalog.Atrributes
+namespace Store.Ecommerce.Catalog.Attributes
 {
-    public class SpecificationAttribute : AuditedAggregateRoot<int>
+    public class CreateUpdateSpecificationAttributeDto
     {
         public string Name { get; set; }
         public string Alias { get; set; }
@@ -16,3 +10,4 @@ namespace Store.Ecommerce.Catalog.Atrributes
         public bool ShowOnProductPage { get; set; }
     }
 }
+

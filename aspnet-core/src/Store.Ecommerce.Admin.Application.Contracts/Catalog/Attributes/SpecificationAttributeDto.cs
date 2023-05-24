@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
-namespace Store.Ecommerce.Catalog.Atrributes
+namespace Store.Ecommerce.Catalog.Attributes
 {
-    public class SpecificationAttribute : AuditedAggregateRoot<int>
+    public class SpecificationAttributeDto : IEntityDto<int>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
         public string Description { get; set; }
@@ -16,3 +13,4 @@ namespace Store.Ecommerce.Catalog.Atrributes
         public bool ShowOnProductPage { get; set; }
     }
 }
+
