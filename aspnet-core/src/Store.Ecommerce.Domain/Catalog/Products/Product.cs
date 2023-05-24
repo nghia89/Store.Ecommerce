@@ -28,7 +28,6 @@ namespace Store.Ecommerce.Catalog.Products
         public ProductType ProductType { get; set; }
         public ProductCondition ProductCondition { get; set; }
         public bool ShowOnHomePage { get; set; }
-        public Guid ManufacturerId { get; set; }
         public bool IsShippingEnabled { get; set; }
         public bool IsFreeShipping { get; set; }
         /// <summary>

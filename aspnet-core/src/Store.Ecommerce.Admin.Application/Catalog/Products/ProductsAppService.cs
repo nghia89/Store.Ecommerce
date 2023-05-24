@@ -47,7 +47,6 @@ namespace Store.Ecommerce.Catalog.Products
             var product = await Repository.GetAsync(id);
             if (product == null)
                 throw new BusinessException("ProductIsNotExists");
-            product.ManufacturerId = input.ManufacturerId;
             product.Name = input.Name;
             product.Slug = input.Slug;
             product.ProductType = input.ProductType;

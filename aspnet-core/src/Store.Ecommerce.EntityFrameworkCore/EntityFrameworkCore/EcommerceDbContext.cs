@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Store.Ecommerce.Catalog.Atrributes;
+using Store.Ecommerce.Catalog.Categories;
+using Store.Ecommerce.Catalog.Products;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -49,6 +52,14 @@ public class EcommerceDbContext :
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+
+    //Ecommerce
+
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<CategorySpecificationAttribute> CategorySpecificationAttributes { get; set; }
+    public DbSet<SpecificationAttribute> SpecificationAttributes { get; set; }
+    public DbSet<SpecificationAttributeOption> SpecificationAttributeOptions { get; set; }
 
     #endregion
 
