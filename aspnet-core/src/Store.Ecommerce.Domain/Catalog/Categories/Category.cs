@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Store.Ecommerce.Catalog.Atrributes;
 using Store.Ecommerce.Catalog.Products;
 using Volo.Abp.Domain.Entities.Auditing;
 

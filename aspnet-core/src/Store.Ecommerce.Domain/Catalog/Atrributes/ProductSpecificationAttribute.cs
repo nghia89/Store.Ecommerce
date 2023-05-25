@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Store.Ecommerce.Catalog.Products;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace Store.Ecommerce.Catalog.Atrributes
    public class ProductSpecificationAttribute : AuditedAggregateRoot<int>
     {
         public int SpecificationAttributeOptionId { get; set; }
+        public SpecificationAttributeOption SpecificationAttributeOption { get; set; }
         public Guid ProductId { get; set; }
+        public Product Product { get; set; }
         public bool? ShowOnProductPage { get; set; }
         public int SortOrder { get; set; }
     }

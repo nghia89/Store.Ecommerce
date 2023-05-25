@@ -2,6 +2,7 @@
 using Store.Ecommerce.Catalog.Atrributes;
 using Store.Ecommerce.Catalog.Categories;
 using Store.Ecommerce.Catalog.Products;
+using Store.Ecommerce.Configurations.Attributes;
 using Store.Ecommerce.Configurations.Products;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -58,7 +59,7 @@ public class EcommerceDbContext :
 
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
-    public DbSet<CategorySpecificationAttribute> CategorySpecificationAttributes { get; set; }
+    public DbSet<CategorySpecification> CategorySpecifications { get; set; }
     public DbSet<SpecificationAttribute> SpecificationAttributes { get; set; }
     public DbSet<SpecificationAttributeOption> SpecificationAttributeOptions { get; set; }
 
@@ -88,5 +89,10 @@ public class EcommerceDbContext :
         /* Configure your own tables/entities inside here */
 
         builder.ApplyConfiguration(new ProductConfiguration());
+        builder.ApplyConfiguration(new CategoryConfiguration());
+        builder.ApplyConfiguration(new CategorySpecificationConfiguration());
+        builder.ApplyConfiguration(new SpecificationAttributeConfiguration());
+        builder.ApplyConfiguration(new SpecificationAttributeOptionConfiguration());
+        builder.ApplyConfiguration(new ProductSpecificationAttributeConfiguration());
     }
 }

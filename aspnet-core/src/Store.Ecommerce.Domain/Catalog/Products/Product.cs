@@ -1,4 +1,5 @@
-﻿using Store.Ecommerce.Catalog.Categories;
+﻿using Store.Ecommerce.Catalog.Atrributes;
+using Store.Ecommerce.Catalog.Categories;
 using Store.Ecommerce.Enum.Products;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,7 @@ namespace Store.Ecommerce.Catalog.Products
         public decimal Length { get; set; }
         public decimal Weight { get; set; }
         public bool DisableBuyButton { get; set; }
+
+        public ICollection<ProductSpecificationAttribute> ProductSpecificationAttributes { get; set; }
     }
 }

@@ -16,14 +16,14 @@ using Volo.Abp.ObjectMapping;
 namespace Store.Ecommerce.Catalog.ProductCategories
 {
     public class CateSpAttributeAppService : CrudAppService<
-        CategorySpecificationAttribute,
+        CategorySpecification,
         CategorySpecificationAttributeDto,
         int,
         PagedResultRequestDto,
         CeateUpdateCateSpeAttributeDto,
         CeateUpdateCateSpeAttributeDto>, ICateSpAttributeAppService
     {
-        public CateSpAttributeAppService(IRepository<CategorySpecificationAttribute, int> repository) : base(repository)
+        public CateSpAttributeAppService(IRepository<CategorySpecification, int> repository) : base(repository)
         {
  
         }

@@ -10,9 +10,12 @@ namespace Store.Ecommerce.Catalog.Atrributes
     public class SpecificationAttributeOption : AuditedAggregateRoot<int>
     {
         public int SpecificationAttributeId { get; set; }
+        public SpecificationAttribute SpecificationAttribute  { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
         public int SortOrder { get; set; }
         public string Color { get; set; }
+
+        public ICollection<ProductSpecificationAttribute> ProductSpecificationAttributes { get; set; }
     }
 }

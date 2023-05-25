@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace Store.Ecommerce.Catalog.Atrributes
         public string Description { get; set; }
         public int SortOrder { get; set; }
         public bool ShowOnProductPage { get; set; }
+        public Collection<SpecificationAttributeOption> SpecificationAttributeOptions { get; set; }
     }
 }
