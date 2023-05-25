@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Store.Ecommerce.Catalog.Products;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Store.Ecommerce.Catalog.Categories
@@ -13,7 +14,7 @@ namespace Store.Ecommerce.Catalog.Categories
     public class Category : FullAuditedAggregateRoot<Guid>
     {
         public Category() { }
-        public Category(Guid id, string name, string code, string slug, int sortOrder, string coverPicture, bool isFeatured, bool isActive, 
+        public Category(Guid id, string name, string code, string slug, int sortOrder, string coverPicture, bool isFeatured, bool isActive,
                         string metaDescription, string metaTitle, Guid? parentId)
         {
             Id = id;
@@ -40,5 +41,7 @@ namespace Store.Ecommerce.Catalog.Categories
         public string MetaTitle { get; set; }
         public Guid? ParentId { get; set; }
         public string TreePath { get; set; } = string.Empty;
+
+        public ICollection<Product> Products { get; set; }
     }
 }

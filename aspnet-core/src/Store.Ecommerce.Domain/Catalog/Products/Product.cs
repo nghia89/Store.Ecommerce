@@ -1,4 +1,5 @@
-﻿using Store.Ecommerce.Enum.Products;
+﻿using Store.Ecommerce.Catalog.Categories;
+using Store.Ecommerce.Enum.Products;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,7 @@ namespace Store.Ecommerce.Catalog.Products
         public bool Published { get; set; }
         public bool IsActive { get; set; }
         public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
         public string MetaDescription { get; set; }
         public string MetaKeywords { get; set; }
         public string Description { get; set; }

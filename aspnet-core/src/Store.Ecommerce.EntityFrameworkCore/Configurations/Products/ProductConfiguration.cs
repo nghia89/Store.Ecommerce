@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Store.Ecommerce.Catalog.Categories;
 using Store.Ecommerce.Catalog.Products;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,9 @@ namespace Store.Ecommerce.Configurations.Products
         {
             builder.ToTable(EcommerceConsts.DbTablePrefix + "Products");
             builder.HasKey(x => x.Id);
-            builder.Property(x=>x.Name).HasMaxLength(250).IsRequired() ;
-            builder.HasIndex(x => x.SKU);
+            builder.Property(x => x.Name).HasMaxLength(250).IsRequired();
             builder.Property(x => x.Slug)
-              .HasMaxLength(250).IsRequired(); 
+              .HasMaxLength(250).IsRequired();
             builder.Property(x => x.ThumbnailPicture)
            .HasMaxLength(250);
             builder.Property(x => x.ShortDescription)
@@ -27,7 +27,10 @@ namespace Store.Ecommerce.Configurations.Products
              .HasMaxLength(250);
             builder.Property(x => x.MetaKeywords)
             .HasMaxLength(250);
-            builder.Property(x=>x.SKU).HasMaxLength(50).IsUnicode(false);
+            builder.Property(x => x.SKU).HasMaxLength(50).IsUnicode(false);
+
+            builder.HasIndex(x => new { x.Name, x.SKU });
+            builder.HasOne<Category>(x => x.Category).WithMany(m => m.Products).HasForeignKey(k => k.CategoryId);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Store.Ecommerce.Catalog.Atrributes;
 using Store.Ecommerce.Catalog.Categories;
 using Store.Ecommerce.Catalog.Products;
+using Store.Ecommerce.Configurations.Products;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -86,11 +87,6 @@ public class EcommerceDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(EcommerceConsts.DbTablePrefix + "YourEntities", EcommerceConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.ApplyConfiguration(new ProductConfiguration());
     }
 }
