@@ -76,8 +76,8 @@ public class EcommerceAuthServerModule : AbpModule
                     typeof(AbpUiResource)
                 );
 
-            options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            options.Languages.Add(new LanguageInfo("vi", "vi", "Vietmamese"));
+            // options.Languages.Add(new LanguageInfo("en", "en", "English"));
+            // options.Languages.Add(new LanguageInfo("vi", "vi", "Vietmamese"));
         });
 
         Configure<AbpBundlingOptions>(options =>
@@ -93,8 +93,8 @@ public class EcommerceAuthServerModule : AbpModule
 
         Configure<AbpAuditingOptions>(options =>
         {
-                //options.IsEnabledForGetRequests = true;
-                options.ApplicationName = "AuthServer";
+            //options.IsEnabledForGetRequests = true;
+            options.ApplicationName = "AuthServer";
         });
 
         if (hostingEnvironment.IsDevelopment())
