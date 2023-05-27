@@ -16,7 +16,6 @@ namespace Store.Ecommerce.Catalog.Products
     {
         Task<PagedResultDto<ProductInListDto>> GetListFilterAsync(ProductListFilterDto input);
         Task<List<ProductInListDto>> GetListAllAsync();
-        Task Delete(Guid id);
         //Task<ProductAttributeValueDto> AddProductAttributeAsync(AddUpdateProductAttributeDto input);
         //Task<ProductAttributeValueDto> UpdateProductAttributeAsync(Guid id, AddUpdateProductAttributeDto input);
         //Task RemoveProductAttributeAsync(Guid attributeId, Guid id);

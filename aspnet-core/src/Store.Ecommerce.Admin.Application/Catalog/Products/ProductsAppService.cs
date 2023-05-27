@@ -78,7 +78,7 @@ namespace Store.Ecommerce.Catalog.Products
             return ObjectMapper.Map<Product, ProductDto>(product);
         }
 
-        public async Task Delete(Guid id)
+        public override async Task DeleteAsync(Guid id)
         {
             var product = await Repository.GetAsync(id);
             product.IsDeleted = true;
