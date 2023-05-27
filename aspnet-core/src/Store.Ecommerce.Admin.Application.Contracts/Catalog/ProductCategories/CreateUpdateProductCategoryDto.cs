@@ -6,7 +6,6 @@ namespace Store.Ecommerce.Catalog.ProductCategories
 {
     public class CreateUpdateProductCategoryDto
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string Slug { get; set; }
@@ -16,6 +15,6 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public bool IsActive { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
-        public Guid? ParentId { get; set; }
+        public int? ParentId { get; set; }
     }
 }

@@ -13,8 +13,8 @@ namespace Store.Ecommerce.Catalog.Categories
 {
     public class CategoryManager : DomainService
     {
-        private readonly IRepository<Category, Guid> _repository;
-        public CategoryManager(IRepository<Category, Guid> repository
+        private readonly IRepository<Category, int> _repository;
+        public CategoryManager(IRepository<Category, int> repository
             )
         {
             _repository = repository;

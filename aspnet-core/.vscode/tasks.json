@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build.AuthServer",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -14,26 +14,26 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "publish",
+            "label": "build.Admin",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "publish",
-                "${workspaceFolder}/src/Store.Ecommerce.AuthServer/Store.Ecommerce.AuthServer.csproj",
+                "build",
+                "${workspaceFolder}/src/Store.Ecommerce.Admin.HttpApi.Host/Store.Ecommerce.Admin.HttpApi.Host.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "watch",
+            "label": "build.DbMigrator",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/src/Store.Ecommerce.AuthServer/Store.Ecommerce.AuthServer.csproj"
+                "build",
+                "${workspaceFolder}/src/Store.Ecommerce.DbMigrator/Store.Ecommerce.DbMigrator.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         }

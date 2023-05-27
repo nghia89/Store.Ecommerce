@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Store.Ecommerce.Catalog.ProductCategories
 {
-    public class ProductCategoryDto : IEntityDto<Guid>
+    public class ProductCategoryDto : IEntityDto<int>
     {
         public string Name { get; set; }
         public string Code { get; set; }
@@ -16,8 +16,8 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public bool IsActive { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
-        public Guid? ParentId { get; set; }
+        public int? ParentId { get; set; }
         public string TreePath { get; set; } = string.Empty;
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

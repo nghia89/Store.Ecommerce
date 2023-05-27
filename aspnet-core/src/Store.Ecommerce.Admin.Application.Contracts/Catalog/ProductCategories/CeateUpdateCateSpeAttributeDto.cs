@@ -7,7 +7,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
 {
     public class CeateUpdateCateSpeAttributeDto
     {
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public int SpecificationAttributeId { get; set; }
     }
 }

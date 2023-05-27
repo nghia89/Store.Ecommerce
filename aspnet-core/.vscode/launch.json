@@ -8,7 +8,7 @@
             "name": "BE Admin",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build.Admin",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/src/Store.Ecommerce.Admin.HttpApi.Host/bin/Debug/net7.0/Store.Ecommerce.Admin.HttpApi.Host.dll",
             "args": [],
@@ -33,7 +33,7 @@
             "name": "AuthServer",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build.AuthServer",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/src/Store.Ecommerce.AuthServer/bin/Debug/net7.0/Store.Ecommerce.AuthServer.dll",
             "args": [],
@@ -50,6 +50,22 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "DbMigrator",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build.DbMigrator",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/Store.Ecommerce.DbMigrator/bin/Debug/net7.0/Store.Ecommerce.DbMigrator.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/Store.Ecommerce.DbMigrator",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
         }
     ],
     "compounds": [

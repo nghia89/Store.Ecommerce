@@ -77,7 +77,7 @@ public class EcommerceAuthServerModule : AbpModule
                 );
 
             // options.Languages.Add(new LanguageInfo("en", "en", "English"));
-            // options.Languages.Add(new LanguageInfo("vi", "vi", "Vietmamese"));
+            // options.Languages.Add(new LanguageInfo("vi", "vi", "Vietnamese"));
         });
 
         Configure<AbpBundlingOptions>(options =>

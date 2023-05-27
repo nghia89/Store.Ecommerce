@@ -18,14 +18,14 @@ namespace Store.Ecommerce.Catalog.ProductCategories
     public class ProductCategoriesAppService : CrudAppService<
         Category,
         ProductCategoryDto,
-        Guid,
+        int,
         PagedResultRequestDto,
         CreateUpdateProductCategoryDto,
         CreateUpdateProductCategoryDto>, IProductCategoriesAppService
     {
-        private readonly IRepository<Category, Guid> _repository;
+        private readonly IRepository<Category, int> _repository;
         private readonly CategoryManager _categoryManager;
-        public ProductCategoriesAppService(IRepository<Category, Guid> repository, CategoryManager categoryManager) : base(repository)
+        public ProductCategoriesAppService(IRepository<Category, int> repository, CategoryManager categoryManager) : base(repository)
         {
             _repository = repository;
             _categoryManager = categoryManager;
@@ -33,8 +33,8 @@ namespace Store.Ecommerce.Catalog.ProductCategories
 
         public override async Task<ProductCategoryDto> CreateAsync(CreateUpdateProductCategoryDto input)
         {
-            var createEntity = new Category(Guid.NewGuid(), input.Name, input.Code, input.Slug, input.SortOrder, input.CoverPicture, input.IsFeatured, input.IsActive, input.MetaDescription,
-                input.MetaTitle, input.ParentId);
+            var createEntity = ObjectMapper.Map<CreateUpdateProductCategoryDto, Category>(input);
+            var entity = await _repository.InsertAsync(createEntity, true);
             if (input.ParentId != null)
             {
                 var parentCategory = await base.GetEntityByIdAsync(input.ParentId.Value);
@@ -42,27 +42,27 @@ namespace Store.Ecommerce.Catalog.ProductCategories
                 {
                     if (string.IsNullOrEmpty(parentCategory.TreePath))
                     {
-                        createEntity.TreePath = createEntity.Id.ToString();
+                        entity.TreePath = entity.Id.ToString();
                     }
                     else
                     {
-                        createEntity.TreePath = $"{parentCategory.TreePath}/{createEntity.Id}";
+                        entity.TreePath = $"{parentCategory.TreePath}/{entity.Id}";
                     }
                 }
                 else
                 {
-                    createEntity.TreePath = createEntity.Id.ToString();
+                    entity.TreePath = entity.Id.ToString();
                 }
             }
             else
             {
-                createEntity.TreePath = createEntity.Id.ToString();
+                entity.TreePath = entity.Id.ToString();
             }
-            var entity = await _repository.InsertAsync(createEntity, true);
+            await _repository.UpdateAsync(entity, true);
             return ObjectMapper.Map<Category, ProductCategoryDto>(entity);
         }
 
-        public override async Task<ProductCategoryDto> UpdateAsync(Guid id, CreateUpdateProductCategoryDto input)
+        public override async Task<ProductCategoryDto> UpdateAsync(int id, CreateUpdateProductCategoryDto input)
         {
             var category = await base.GetEntityByIdAsync(id);
             if (category != null)

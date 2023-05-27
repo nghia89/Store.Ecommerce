@@ -16,8 +16,8 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public bool IsActive { get; set; }
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
-        public Guid? ParentId { get; set; }
-        public Guid Id { get; set; }
+        public int? ParentId { get; set; }
+        public int Id { get; set; }
         public string TreePath { get; set; } = string.Empty;
 
     }

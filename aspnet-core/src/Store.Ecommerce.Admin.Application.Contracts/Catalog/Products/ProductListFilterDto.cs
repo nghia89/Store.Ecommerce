@@ -6,7 +6,7 @@ namespace Store.Ecommerce.Catalog.Products
 {
     public class ProductListFilterDto : BaseListFilterDto
     {
-        public Guid? CategoryId { get; set; }
+        public int? CategoryId { get; set; }
     }
- 
+
 }

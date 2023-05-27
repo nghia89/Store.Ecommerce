@@ -6,7 +6,7 @@ namespace Store.Ecommerce.Catalog.Categories
 {
     public class CategorySpecification : Entity<int>
     {
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public int SpecificationAttributeId { get; set; }
 
     }

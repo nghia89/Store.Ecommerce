@@ -16,7 +16,7 @@ namespace Store.Ecommerce.Catalog.Products
         public int SortOrder { get; set; }
         public bool Published { get; set; }
         public bool IsActive { get; set; }
-        public Guid CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public string MetaDescription { get; set; }
         public string MetaKeywords { get; set; }
         public string Description { get; set; }

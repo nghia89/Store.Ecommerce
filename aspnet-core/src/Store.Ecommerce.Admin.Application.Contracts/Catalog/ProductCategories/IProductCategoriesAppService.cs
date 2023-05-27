@@ -9,7 +9,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
 {
     public interface IProductCategoriesAppService : ICrudAppService
       <ProductCategoryDto,
-      Guid,
+      int,
       PagedResultRequestDto,
       CreateUpdateProductCategoryDto,
       CreateUpdateProductCategoryDto>
