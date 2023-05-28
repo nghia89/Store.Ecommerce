@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Store.Ecommerce.Catalog.Atrributes;
+using Store.Ecommerce.Catalog.Attributes;
 using Store.Ecommerce.Catalog.Categories;
 using Store.Ecommerce.Catalog.ProductCategories;
 using Store.Ecommerce.Catalog.Products;
@@ -23,5 +25,10 @@ public class EcommerceApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateProductDto, Product>().ReverseMap();
         CreateMap<ProductDto, Product>().ReverseMap();
         CreateMap<ProductInListDto, Product>().ReverseMap();
+
+        //Attributes
+
+        CreateMap<Attribute, AttributeDto>().ReverseMap();
+        CreateMap<Attribute, CreateUpdateAttributeDto>().ReverseMap();
     }
 }

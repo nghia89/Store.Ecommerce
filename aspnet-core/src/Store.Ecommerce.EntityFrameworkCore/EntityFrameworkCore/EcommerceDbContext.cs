@@ -61,6 +61,7 @@ public class EcommerceDbContext :
     public DbSet<Category> Categories { get; set; }
     public DbSet<CategorySpecification> CategorySpecifications { get; set; }
     public DbSet<SpecificationAttribute> SpecificationAttributes { get; set; }
+    public DbSet<ProductSpecificationAttribute> ProductSpecificationAttributes { get; set; }
     public DbSet<SpecificationAttributeOption> SpecificationAttributeOptions { get; set; }
 
     public DbSet<Attribute> Attributes { get; set; }
