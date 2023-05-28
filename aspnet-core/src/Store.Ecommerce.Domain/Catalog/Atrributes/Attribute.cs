@@ -7,12 +7,13 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Store.Ecommerce.Catalog.Atrributes
 {
-    public class ProductAttributeOption : AuditedAggregateRoot<int>
+    public class Attribute : AuditedAggregateRoot<int>
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public string Alias { get; set; }
         public string Color { get; set; }
-        public int ProductAttributeId { get; set; }
         public int SortOrder { get; set; }
+
     }
 }

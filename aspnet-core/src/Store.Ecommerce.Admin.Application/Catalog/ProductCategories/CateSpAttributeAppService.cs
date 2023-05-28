@@ -25,12 +25,12 @@ namespace Store.Ecommerce.Catalog.ProductCategories
     {
         public CateSpAttributeAppService(IRepository<CategorySpecification, int> repository) : base(repository)
         {
- 
+
         }
 
-        //public async Task<List<ProductCategoryInListDto>> GetByCateId(int cateId)
-        //{
+        // public async Task<List<ProductCategoryInListDto>> GetByCateId(int cateId)
+        // {
         //   var data = await  Repository.FindAsync<ProductCategoryInListDto>(cateId);
-        //}
+        // }
     }
 }
