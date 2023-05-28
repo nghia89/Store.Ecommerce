@@ -63,6 +63,10 @@ public class EcommerceDbContext :
     public DbSet<SpecificationAttribute> SpecificationAttributes { get; set; }
     public DbSet<SpecificationAttributeOption> SpecificationAttributeOptions { get; set; }
 
+    public DbSet<Attribute> Attributes { get; set; }
+    public DbSet<ProductAttribute> ProductAttributes { get; set; }
+    public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+
     #endregion
 
     public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options)
@@ -94,5 +98,8 @@ public class EcommerceDbContext :
         builder.ApplyConfiguration(new SpecificationAttributeConfiguration());
         builder.ApplyConfiguration(new SpecificationAttributeOptionConfiguration());
         builder.ApplyConfiguration(new ProductSpecificationAttributeConfiguration());
+        builder.ApplyConfiguration(new AttributeConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeConfiguration());
+        builder.ApplyConfiguration(new ProductAttributeValueConfiguration());
     }
 }

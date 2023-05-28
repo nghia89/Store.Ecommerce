@@ -44,5 +44,6 @@ namespace Store.Ecommerce.Catalog.Products
         public bool DisableBuyButton { get; set; }
 
         public ICollection<ProductSpecificationAttribute> ProductSpecificationAttributes { get; set; }
+        public ICollection<ProductAttribute> ProductAttributes { get; set; }
     }
 }

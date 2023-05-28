@@ -15,8 +15,10 @@ namespace Store.Ecommerce.Catalog.Atrributes
         public Product Product { get; set; }
         public int AttributeId { get; set; }
         public Attribute Attribute { get; set; }
-        public bool IsRequired { get; set; }
+        //public bool IsRequired { get; set; }
         public string Text { get; set; }
         public AttributeControlType AttributeControlTypeId { get; set; }
+
+        public ProductAttributeValue ProductAttributeValue { get; set; }
     }
 }
