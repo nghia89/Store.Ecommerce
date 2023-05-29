@@ -16,12 +16,14 @@ import { AppComponent } from './app.component';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { AbpOAuthModule } from '@abp/ng.oauth';
+import { AppLayoutModule } from './layout/app.layout.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    AppLayoutModule,
     CoreModule.forRoot({
       environment,
       registerLocaleFn: registerLocale(),
@@ -40,4 +42,4 @@ import { AbpOAuthModule } from '@abp/ng.oauth';
   providers: [APP_ROUTE_PROVIDER],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

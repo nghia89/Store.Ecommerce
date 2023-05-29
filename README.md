@@ -8,5 +8,5 @@
 # install redis on docker
 
     1. docker pull redis
-    2. docker run --name redis -d redis
-    3. docker run --name redis-local -p 6379:6379 -d redis
+    2. docker run --name redis -d  --restart unless-stopped redis
+    3. docker run -d --restart unless-stopped --name redis-local -p 6379:6379 redis
