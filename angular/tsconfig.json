@@ -22,7 +22,9 @@
       ],
       "@proxy/*": [
         "src/app/proxy/*"
-      ]
+      ],    
+      "@share/*": ["src/app/shared/*"]
+
     },
     "useDefineForClassFields": false
   },
