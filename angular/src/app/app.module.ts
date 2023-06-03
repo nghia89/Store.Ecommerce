@@ -18,7 +18,8 @@ import { AbpOAuthModule } from '@abp/ng.oauth';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { NotificationService } from '@share/services/notification.service';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast'
+import { ToastModule } from 'primeng/toast';
+import { CategoryComponent } from './catalog/category/category.component'
 
 @NgModule({
   imports: [
