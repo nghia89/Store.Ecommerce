@@ -1,1 +1,10 @@
-<p>category works!</p>
+<div class="pb-2">
+    <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+</div>
+<div class="card">
+    <div class=" flex justify-content-right pb-4">
+        <p-button label="Add new" icon="pi pi-plus" iconPos="right"></p-button>
+    </div>
+    <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Filter" selectionMode="single"
+        (onNodeSelect)="onNodeSelect($event)"></p-tree>
+</div>
