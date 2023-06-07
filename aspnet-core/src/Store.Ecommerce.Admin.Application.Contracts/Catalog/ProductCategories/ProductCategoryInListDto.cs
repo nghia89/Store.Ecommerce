@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Store.Ecommerce.Catalog.ProductCategories
 {
-    public class ProductCategoryInListDto : EntityDto<Guid>
+    public class ProductCategoryInListDto : EntityDto<int>
     {
         public string Name { get; set; }
         public string Code { get; set; }

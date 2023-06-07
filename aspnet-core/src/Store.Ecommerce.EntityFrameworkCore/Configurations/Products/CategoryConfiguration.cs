@@ -14,6 +14,7 @@ namespace Store.Ecommerce.Configurations.Products
             builder.Property(x => x.Slug).HasMaxLength(250).IsRequired();
             builder.Property(x => x.CoverPicture).HasMaxLength(250);
             builder.Property(x => x.MetaDescription).HasMaxLength(250);
+            builder.Property(x => x.MetaTitle).HasMaxLength(250);
             builder.HasIndex(x => x.TreePath);
         }
     }

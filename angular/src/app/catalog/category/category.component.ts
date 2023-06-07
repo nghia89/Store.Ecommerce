@@ -1,5 +1,7 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { MenuItem, TreeNode } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CategoryDetailComponent } from './category.detail.component';
 
 @Component({
   selector: 'app-category',
@@ -12,8 +14,8 @@ export class CategoryComponent implements OnInit {
 
   files: TreeNode[] = [];
   selectedFiles: TreeNode[] = [];
-
-  constructor() { }
+  public isLoading = false;
+  constructor(private dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.items = [{
@@ -32,22 +34,22 @@ export class CategoryComponent implements OnInit {
           "data": "Work Folder",
           "collapsedIcon": "pi pi-folder",
         }]
-      },
-      {
-        "label": "Lazy Node 1",
-        "data": "Node 1",
-        "expandedIcon": "pi pi-folder-open",
-        "collapsedIcon": "pi pi-folder",
-        "leaf": false
-      },
-      {
-        "label": "Lazy Node 1",
-        "data": "Node 2",
-        "expandedIcon": "pi pi-folder-open",
-        "collapsedIcon": "pi pi-folder",
-        "leaf": false
       }
     ]
+  }
+
+  onAddNew() {
+    this.dialogService.open(CategoryDetailComponent, {
+      data: {
+        id: 23232
+      },
+      header: 'Add new category',
+      width: '60%',
+      modal: true,
+      contentStyle: { overflow: 'auto' },
+      maximizable: true,
+      resizable: false
+    })
   }
 
 

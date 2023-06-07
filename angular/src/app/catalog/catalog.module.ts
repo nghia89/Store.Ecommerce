@@ -4,19 +4,44 @@ import { CatalogRoutingModule } from "./catalog-routing.module";
 import { ButtonModule } from "primeng/button";
 import { TreeModule } from 'primeng/tree';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-
-
+import { SkeletonModule } from 'primeng/skeleton';
+import { CommonModule } from "@angular/common";
+import { DialogModule } from 'primeng/dialog';
+import { CategoryDetailComponent } from "./category/category.detail.component";
+import { PanelModule } from 'primeng/panel';
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { InputTextModule } from "primeng/inputtext";
+import { BlockUIModule } from "primeng/blockui";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AppSharedModule } from "@share/modules/app-share-module";
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 @NgModule({
     declarations: [
+        CategoryDetailComponent,
         CategoryComponent
     ],
     imports: [
+        FormsModule,
+        AppSharedModule,
+        ReactiveFormsModule,
+        CommonModule,
         CatalogRoutingModule,
         ButtonModule,
         TreeModule,
-        BreadcrumbModule
+        BreadcrumbModule,
+        SkeletonModule,
+        DialogModule,
+        PanelModule,
+        ProgressSpinnerModule,
+        InputTextModule,
+        BlockUIModule,
+        InputSwitchModule,
+        InputNumberModule,
+        InputTextareaModule
     ],
-    entryComponents: []
+    entryComponents: [CategoryDetailComponent]
 })
 
 export class CatalogModule { } 

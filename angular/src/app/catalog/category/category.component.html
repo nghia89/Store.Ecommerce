@@ -3,8 +3,48 @@
 </div>
 <div class="card">
     <div class=" flex justify-content-right pb-4">
-        <p-button label="Add new" icon="pi pi-plus" iconPos="right"></p-button>
+        <p-button (click)="onAddNew()" label="Add new" icon="pi pi-plus" iconPos="right"></p-button>
     </div>
-    <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Filter" selectionMode="single"
-        (onNodeSelect)="onNodeSelect($event)"></p-tree>
+    <div *ngIf="isLoading" class="border-round border-1 surface-border p-4 surface-card">
+        <ul class="m-0 p-0 list-none">
+            <li class="mb-3">
+                <div class="flex">
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <div style="flex: 1">
+                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="75%"></p-skeleton>
+                    </div>
+                </div>
+            </li>
+            <li class="mb-3">
+                <div class="flex">
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <div style="flex: 1">
+                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="75%"></p-skeleton>
+                    </div>
+                </div>
+            </li>
+            <li class="mb-3">
+                <div class="flex">
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <div style="flex: 1">
+                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="75%"></p-skeleton>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="flex">
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <div style="flex: 1">
+                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
+                        <p-skeleton width="75%"></p-skeleton>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <p-tree *ngIf="!isLoading" [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Filter"
+        selectionMode="single" (onNodeSelect)="onNodeSelect($event)"></p-tree>
 </div>
