@@ -12,7 +12,8 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 export class CategoryDetailComponent implements OnInit {
   public form: FormGroup;
   blockedPanel: boolean = false;
-  selectedEntity = { name: "" } as ProductCategoryDto;
+  btnDisabled: boolean = false;
+  selectedEntity = { name: "", metaDescription: "", metaTitle: "", sortOrder: 0 } as ProductCategoryDto;
 
 
   constructor(private config: DynamicDialogConfig, private fb: FormBuilder) { this.buildForm(); }
@@ -31,8 +32,21 @@ export class CategoryDetailComponent implements OnInit {
     return (event.target as HTMLInputElement).value;
   }
   saveChange() {
-
+    this.toggleBlockUI(true)
   }
+
+  private toggleBlockUI(enabled: boolean) {
+    if (enabled == true) {
+      this.blockedPanel = true;
+      this.btnDisabled = true;
+    } else {
+      setTimeout(() => {
+        this.blockedPanel = false;
+        this.btnDisabled = false;
+      }, 1000);
+    }
+  }
+
   private buildForm() {
     this.form = this.fb.group({
       code: new FormControl(this.selectedEntity.code),

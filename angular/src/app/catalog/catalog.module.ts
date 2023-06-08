@@ -17,6 +17,7 @@ import { AppSharedModule } from "@share/modules/app-share-module";
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+
 @NgModule({
     declarations: [
         CategoryDetailComponent,
