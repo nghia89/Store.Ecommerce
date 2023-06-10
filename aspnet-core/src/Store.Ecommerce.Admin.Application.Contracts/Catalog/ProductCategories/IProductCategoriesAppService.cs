@@ -15,5 +15,6 @@ namespace Store.Ecommerce.Catalog.ProductCategories
       CreateUpdateProductCategoryDto>
     {
         Task<List<ProductCategoryInListDto>> GetListAllAsync(string Keyword);
+        Task<List<ProductCategoryInListDto>> GetListTreeAsync(string Keyword);
     }
 }

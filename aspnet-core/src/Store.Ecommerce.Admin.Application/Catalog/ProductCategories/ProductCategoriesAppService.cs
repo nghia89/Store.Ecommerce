@@ -96,5 +96,38 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             var data = await AsyncExecuter.ToListAsync(query);
             return ObjectMapper.Map<List<Category>, List<ProductCategoryInListDto>>(data);
         }
+
+        public async Task<List<ProductCategoryTreeDto>> GetListTreeAsync(string Keyword)
+        {
+            var listTree=new List<ProductCategoryTreeDto>();
+            var listAll=await this.GetListAllAsync(Keyword);
+
+        var listParent=listAll.Where(x=>x.ParentId==null);
+        foreach (var item in listParent)
+        {
+            listTree.Add(new ProductCategoryTreeDto{
+                Label=item.Name,
+                Children = getChildren(listAll,item.Id)
+            })
+        }
+
+        return listTree;
+        }
+
+        public List<ProductCategoryTreeDto> getChildren(List<ProductCategoryInListDto> listAll,int id){
+            if(parentId==null)return null;
+            var listTree=new List<ProductCategoryTreeDto>();
+            
+            var listChildren = listAll.Where(x=> x.parentId!=null && x.ParentId==id)
+            if(listChildren?.Any()==false)return listTree
+            foreach (var item in listChildren)
+            {
+                listTree.Add(new ProductCategoryTreeDto{
+                    Label=item.Name,
+                    Children = getChildren(listAll,item.Id)
+                })
+            }
+            return listTree;
+        }
     }
 }
