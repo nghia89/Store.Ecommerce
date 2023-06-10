@@ -1,4 +1,4 @@
-import type { CreateUpdateProductCategoryDto, ProductCategoryDto, ProductCategoryInListDto } from './models';
+import type { CreateUpdateProductCategoryDto, ProductCategoryDto, ProductCategoryInListDto, ProductCategoryTreeDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedResultDto, PagedResultRequestDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProductCategoriesService {
   apiName = 'Default';
-  
+
 
   create = (input: CreateUpdateProductCategoryDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ProductCategoryDto>({
@@ -16,24 +16,24 @@ export class ProductCategoriesService {
       url: '/api/app/product-categories',
       body: input,
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   delete = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'DELETE',
       url: `/api/app/product-categories/${id}`,
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   get = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ProductCategoryDto>({
       method: 'GET',
       url: `/api/app/product-categories/${id}`,
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   getList = (input: PagedResultRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<ProductCategoryDto>>({
@@ -41,8 +41,8 @@ export class ProductCategoriesService {
       url: '/api/app/product-categories',
       params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   getListAll = (Keyword: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ProductCategoryInListDto[]>({
@@ -50,8 +50,17 @@ export class ProductCategoriesService {
       url: '/api/app/product-categories/all',
       params: { keyword: Keyword },
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
+
+  getListTree = (Keyword?: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ProductCategoryTreeDto[]>({
+      method: 'GET',
+      url: '/api/app/product-categories/tree',
+      params: { keyword: Keyword },
+    },
+      { apiName: this.apiName, ...config });
+
 
   update = (id: number, input: CreateUpdateProductCategoryDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, ProductCategoryDto>({
@@ -59,7 +68,16 @@ export class ProductCategoriesService {
       url: `/api/app/product-categories/${id}`,
       body: input,
     },
-    { apiName: this.apiName,...config });
+      { apiName: this.apiName, ...config });
 
-  constructor(private restService: RestService) {}
+
+  getChildrenByListAllAndId = (listAll: ProductCategoryInListDto[], id: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ProductCategoryTreeDto[]>({
+      method: 'GET',
+      url: `/api/app/product-categories/${id}/get-children`,
+      params: { listAll },
+    },
+      { apiName: this.apiName, ...config });
+
+  constructor(private restService: RestService) { }
 }

@@ -16,7 +16,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   blockedPanel: boolean = false;
   btnDisabled: boolean = false;
-  selectedEntity = { name: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "" } as ProductCategoryDto;
+  selectedEntity = { name: "", sku: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "", isActive: false, isFeatured: false } as ProductCategoryDto;
 
 
   constructor(
@@ -49,7 +49,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   saveChange() {
     this.toggleBlockUI(true)
-    console.log('this.utilService.isEmpty(this.config.data?.id)', this.config.data?.id, this.utilService.isEmpty(this.config.data?.id))
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
       this.productCategoriesService.create(this.form.value)
         .pipe(takeUntil(this.ngUnsubscribe))

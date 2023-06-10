@@ -55,3 +55,11 @@ export interface ProductCategoryInListDto extends EntityDto<number> {
   id: number;
   treePath?: string;
 }
+
+export interface ProductCategoryTreeDto {
+  id: number;
+  label?: string;
+  expandedIcon?: string;
+  collapsedIcon?: string;
+  children: ProductCategoryTreeDto[];
+}

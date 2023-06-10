@@ -1,57 +1,82 @@
 <form [formGroup]="form" skipValidation (ngSubmit)="saveChange()">
-    <p-panel>
-        <!--form grid-->
-        <div class="formgrid grid">
-            <div class="field col-12">
-                <label for="name" class="block">Tên <span class="required">*</span></label>
-                <input id="name" maxlength="250" pInputText type="text" class="w-full"
-                    (input)="selectedEntity.name=getValue($event)" formControlName="name" />
-                <div class="p-1 p-input-icon-right">{{selectedEntity.name.length}}/250</div>
-                <app-validation-message [entityForm]="form" fieldName="name"
-                    [validationMessages]="validationMessages"></app-validation-message>
-            </div>
-            <div class="field col-12">
-                <label for="sku" class="block">SKU </label>
-                <input id="sku" pInputText type="text" class="w-full" formControlName="sku" />
-                <app-validation-message [entityForm]="form" fieldName="sku"
-                    [validationMessages]="validationMessages"></app-validation-message>
-            </div>
-            <div class="field col-12">
-                <label for="sortOrder" class="block">Thứ tự <span class="required">*</span></label>
-                <p-inputNumber formControlName="sortOrder"></p-inputNumber>
-                <app-validation-message [entityForm]="form" fieldName="sortOrder"
-                    [validationMessages]="validationMessages"></app-validation-message>
-            </div>
-            <div class="field col-12">
-                <label for="isActive" class="block">Trạng thái</label>
-                <p-inputSwitch formControlName="isActive"></p-inputSwitch>
-            </div>
-            <div class="field col-12">
-                <label for="isFeatured" class="block">Hiển thị trên trang chủ</label>
-                <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
-            </div>
-            <div class="field col-12">
-                <label for="metaDescription" class="block">Mô tả meta</label>
-                <textarea id="metaDescription" maxlength="250" (input)="selectedEntity.metaDescription=getValue($event)"
-                    pInputTextarea class="w-full" formControlName="metaDescription"></textarea>
-                <div class="p-1 p-input-icon-right">{{selectedEntity.metaDescription.length}}/250</div>
-            </div>
-            <div class="field col-12">
-                <label for="metaTitle" class="block">Thẻ tiêu đề</label>
-                <textarea id="metaTitle" pInputTextarea maxlength="250"
-                    (input)="selectedEntity.metaTitle=getValue($event)" class="w-full"
-                    formControlName="metaTitle"></textarea>
-                <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
-            </div>
 
+    <!--form grid-->
+    <div class="formgrid grid">
+        <div class="field col-12">
+            <label for="name" class="block">Tên <span class="required">*</span></label>
+            <input id="name" maxlength="250" pInputText type="text" class="w-full"
+                (input)="selectedEntity.name=getValue($event)" formControlName="name" />
+            <div class="p-1 p-input-icon-right">{{selectedEntity.name.length}}/250</div>
+            <app-validation-message [entityForm]="form" fieldName="name"
+                [validationMessages]="validationMessages"></app-validation-message>
         </div>
-        <ng-template pTemplate="footer">
-            <button type="submit" [disabled]="!form.valid || btnDisabled " pButton icon="fa fa-save" iconPos="left"
-                label="Lưu lại"></button>
-        </ng-template>
-        <!--Block UI-->
-        <p-blockUI [blocked]="blockedPanel">
-            <p-progressSpinner></p-progressSpinner>
-        </p-blockUI>
-    </p-panel>
+        <div class="field col-12">
+            <label for="sku" class="block">SKU </label>
+            <input id="sku" pInputText type="text" class="w-full" formControlName="sku" />
+            <app-validation-message [entityForm]="form" fieldName="sku"
+                [validationMessages]="validationMessages"></app-validation-message>
+        </div>
+        <div class="field col-12">
+            <label for="sortOrder" class="block">Thứ tự <span class="required">*</span></label>
+            <p-inputNumber formControlName="sortOrder"></p-inputNumber>
+            <app-validation-message [entityForm]="form" fieldName="sortOrder"
+                [validationMessages]="validationMessages"></app-validation-message>
+        </div>
+        <div class="field col-12">
+            <label for="isActive" class="block">Trạng thái</label>
+            <p-inputSwitch formControlName="isActive"></p-inputSwitch>
+        </div>
+        <div class="field col-12">
+            <label for="isFeatured" class="block">Hiển thị trên trang chủ</label>
+            <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
+        </div>
+        <div class="field col-12">
+            <label for="metaDescription" class="block">Mô tả meta</label>
+            <textarea id="metaDescription" maxlength="250" (input)="selectedEntity.metaDescription=getValue($event)"
+                pInputTextarea class="w-full" formControlName="metaDescription"></textarea>
+            <div class="p-1 p-input-icon-right">{{selectedEntity.metaDescription.length}}/250</div>
+        </div>
+        <div class="field col-12">
+            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
+            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
+                class="w-full" formControlName="metaTitle"></textarea>
+            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
+        </div>
+
+        <div class="field col-12">
+            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
+            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
+                class="w-full" formControlName="metaTitle"></textarea>
+            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
+        </div>
+        <div class="field col-12">
+            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
+            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
+                class="w-full" formControlName="metaTitle"></textarea>
+            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
+        </div>
+        <div class="field col-12">
+            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
+            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
+                class="w-full" formControlName="metaTitle"></textarea>
+            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
+        </div>
+        <div class="field col-12">
+            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
+            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
+                class="w-full" formControlName="metaTitle"></textarea>
+            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
+        </div>
+
+    </div>
+    <p-dialog-footer>
+        <button type="submit" [disabled]="!form.valid || btnDisabled " pButton icon="fa fa-save" iconPos="left"
+            label="Lưu lại"></button>
+    </p-dialog-footer>
+
+    <!--Block UI-->
+    <p-blockUI [blocked]="blockedPanel">
+        <p-progressSpinner></p-progressSpinner>
+    </p-blockUI>
+
 </form>

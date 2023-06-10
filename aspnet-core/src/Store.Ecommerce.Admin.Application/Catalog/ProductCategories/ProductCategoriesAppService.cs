@@ -89,7 +89,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             return ObjectMapper.Map<Category, ProductCategoryDto>(category);
         }
 
-        public async Task<List<ProductCategoryInListDto>> GetListAllAsync(string Keyword)
+        public async Task<List<ProductCategoryInListDto>> GetListAllAsync(string? Keyword)
         {
             var query = await Repository.GetQueryableAsync();
             query = query.WhereIf(!string.IsNullOrWhiteSpace(Keyword), x => x.Name.Contains(Keyword));
@@ -97,35 +97,42 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             return ObjectMapper.Map<List<Category>, List<ProductCategoryInListDto>>(data);
         }
 
-        public async Task<List<ProductCategoryTreeDto>> GetListTreeAsync(string Keyword)
+        public async Task<List<ProductCategoryTreeDto>> GetListTreeAsync(string? Keyword)
         {
-            var listTree=new List<ProductCategoryTreeDto>();
-            var listAll=await this.GetListAllAsync(Keyword);
+            var listTree = new List<ProductCategoryTreeDto>();
+            var listAll = await this.GetListAllAsync(Keyword);
 
-        var listParent=listAll.Where(x=>x.ParentId==null);
-        foreach (var item in listParent)
-        {
-            listTree.Add(new ProductCategoryTreeDto{
-                Label=item.Name,
-                Children = getChildren(listAll,item.Id)
-            })
+            var listParent = listAll.Where(x => x.ParentId == null);
+            foreach (var item in listParent)
+            {
+                listTree.Add(new ProductCategoryTreeDto
+                {
+                    Id = item.Id,
+                    Label = item.Name,
+                    Children = getChildren(listAll, item.Id)
+                });
+            }
+
+            return listTree;
         }
 
-        return listTree;
-        }
+        public List<ProductCategoryTreeDto> getChildren(List<ProductCategoryInListDto> listAll, int id)
+        {
+            var listTree = new List<ProductCategoryTreeDto>();
 
-        public List<ProductCategoryTreeDto> getChildren(List<ProductCategoryInListDto> listAll,int id){
-            if(parentId==null)return null;
-            var listTree=new List<ProductCategoryTreeDto>();
-            
-            var listChildren = listAll.Where(x=> x.parentId!=null && x.ParentId==id)
-            if(listChildren?.Any()==false)return listTree
+            var listChildren = listAll.Where(x => x.ParentId != null && x.ParentId == id);
+            if (listChildren?.Any() == false) return listTree;
             foreach (var item in listChildren)
             {
-                listTree.Add(new ProductCategoryTreeDto{
-                    Label=item.Name,
-                    Children = getChildren(listAll,item.Id)
-                })
+                var childNode = new ProductCategoryTreeDto
+                {
+                    Id = item.Id,
+                    Label = item.Name,
+                    Children = getChildren(listAll, item.Id)
+                };
+                if (childNode != null && childNode.Children.Any() == false)
+                    childNode.collapsedIcon = "";
+                listTree.Add(childNode);
             }
             return listTree;
         }

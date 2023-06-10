@@ -40,7 +40,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         BlockUIModule,
         InputSwitchModule,
         InputNumberModule,
-        InputTextareaModule
+        InputTextareaModule,
+        BlockUIModule
     ],
     entryComponents: [CategoryDetailComponent]
 })

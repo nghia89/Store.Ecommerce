@@ -19,6 +19,7 @@ public class EcommerceApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateProductCategoryDto, Category>();
         CreateMap<Category, CreateUpdateProductCategoryDto>().ReverseMap();
         CreateMap<Category, ProductCategoryDto>().ReverseMap();
+        CreateMap<Category, ProductCategoryInListDto>().ReverseMap();
 
 
         // Product
