@@ -20,6 +20,7 @@ import { NotificationService } from '@share/services/notification.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
+import { UtilityService } from '@share/services/utility.service';
 
 @NgModule({
   imports: [
@@ -42,7 +43,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     ToastModule
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER, MessageService, NotificationService, DialogService],
+  providers: [APP_ROUTE_PROVIDER, MessageService, NotificationService, DialogService, UtilityService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

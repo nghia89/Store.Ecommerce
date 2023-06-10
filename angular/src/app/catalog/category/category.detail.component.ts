@@ -1,38 +1,69 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateUpdateProductCategoryDto, ProductCategoryDto } from '@proxy/catalog/product-categories';
+import { CreateUpdateProductCategoryDto, ProductCategoryDto, ProductCategoriesService } from '@proxy/catalog/product-categories';
 import { MenuItem, TreeNode } from 'primeng/api';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UtilityService } from '@share/services/utility.service';
+import { Subject, takeUntil } from 'rxjs';
+import { NotificationService } from '@share/services/notification.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.detail.component.html'
 })
 
-export class CategoryDetailComponent implements OnInit {
+export class CategoryDetailComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject<void>();
   public form: FormGroup;
   blockedPanel: boolean = false;
   btnDisabled: boolean = false;
-  selectedEntity = { name: "", metaDescription: "", metaTitle: "", sortOrder: 0 } as ProductCategoryDto;
+  selectedEntity = { name: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "" } as ProductCategoryDto;
 
 
-  constructor(private config: DynamicDialogConfig, private fb: FormBuilder) { this.buildForm(); }
+  constructor(
+    private config: DynamicDialogConfig,
+    private fb: FormBuilder,
+    private utilService: UtilityService,
+    private productCategoriesService: ProductCategoriesService,
+    private ref: DynamicDialogRef,
+    private notificationService: NotificationService,
+  ) { this.buildForm(); }
+
+
+  ngOnDestroy(): void { }
+
   validationMessages = {
     name: [{ type: 'required', message: 'Bạn phải nhập tên' }],
     sortOrder: [{ type: 'required', message: 'Bạn phải nhập thứ tự' }],
   };
   ngOnInit(): void {
     this.buildForm();
-
   }
+
   showDialog() {
 
   }
+
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
   }
+
   saveChange() {
     this.toggleBlockUI(true)
+    console.log('this.utilService.isEmpty(this.config.data?.id)', this.config.data?.id, this.utilService.isEmpty(this.config.data?.id))
+    if (this.utilService.isEmpty(this.config.data?.id) == true) {
+      this.productCategoriesService.create(this.form.value)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe({
+          next: () => {
+            this.toggleBlockUI(false);
+            this.ref.close(this.form.value)
+          },
+          error: (error) => {
+            this.notificationService.showError(error.error.error.message);
+            this.toggleBlockUI(false);
+          }
+        })
+    }
   }
 
   private toggleBlockUI(enabled: boolean) {
@@ -56,7 +87,9 @@ export class CategoryDetailComponent implements OnInit {
       isActive: new FormControl(this.selectedEntity.isActive),
       isFeatured: new FormControl(this.selectedEntity.isFeatured),
       metaDescription: new FormControl(this.selectedEntity.metaDescription),
-      metaTitle: new FormControl(this.selectedEntity.metaTitle)
+      metaTitle: new FormControl(this.selectedEntity.metaTitle),
+      slug: new FormControl(this.selectedEntity.slug),
+      coverPicture: new FormControl(this.selectedEntity.coverPicture),
     })
   }
 }

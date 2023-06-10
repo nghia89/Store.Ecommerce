@@ -41,7 +41,7 @@ export class CategoryComponent implements OnInit {
   onAddNew() {
     this.dialogService.open(CategoryDetailComponent, {
       data: {
-        id: 23232
+        id: 0
       },
       header: 'Add new category',
       width: '60%',

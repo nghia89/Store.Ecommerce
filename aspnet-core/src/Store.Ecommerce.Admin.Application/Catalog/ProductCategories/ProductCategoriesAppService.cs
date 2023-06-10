@@ -35,6 +35,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         {
             var createEntity = ObjectMapper.Map<CreateUpdateProductCategoryDto, Category>(input);
             var entity = await _repository.InsertAsync(createEntity, true);
+            entity.Slug = entity.Name.Slugify();
             if (input.ParentId != null)
             {
                 var parentCategory = await base.GetEntityByIdAsync(input.ParentId.Value);
@@ -72,6 +73,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             category.Name = input.Name;
             category.Slug = input.Slug;
             category.Code = input.Code;
+            category.Slug = category.Name.Slugify();
             category.CoverPicture = input.CoverPicture;
             category.IsActive = input.IsActive;
             category.IsFeatured = input.IsFeatured;
