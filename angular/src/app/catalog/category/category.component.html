@@ -1,10 +1,11 @@
 <div class="pb-2">
     <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
 </div>
+<div class=" flex justify-content-right pb-2">
+    <p-button (click)="onAddNewOrUpdate()" label="Add new" icon="pi pi-plus" iconPos="right"></p-button>
+</div>
 <div class="card">
-    <div class=" flex justify-content-right pb-4">
-        <p-button (click)="onAddNew()" label="Add new" icon="pi pi-plus" iconPos="right"></p-button>
-    </div>
+
     <div *ngIf="isLoading" class="border-round border-1 surface-border p-4 surface-card">
         <ul class="m-0 p-0 list-none">
             <li class="mb-3">

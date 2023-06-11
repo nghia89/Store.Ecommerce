@@ -17,7 +17,8 @@ import { AppSharedModule } from "@share/modules/app-share-module";
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import { TreeSelectModule } from 'primeng/treeselect';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -41,7 +42,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         InputSwitchModule,
         InputNumberModule,
         InputTextareaModule,
-        BlockUIModule
+        BlockUIModule,
+        TreeSelectModule,
+        ConfirmDialogModule
     ],
     entryComponents: [CategoryDetailComponent]
 })

@@ -1,7 +1,7 @@
 import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateUpdateProductCategoryDto, ProductCategoryDto, ProductCategoriesService } from '@proxy/catalog/product-categories';
-import { MenuItem, TreeNode } from 'primeng/api';
+import { ConfirmEventType, ConfirmationService, MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UtilityService } from '@share/services/utility.service';
 import { Subject, takeUntil } from 'rxjs';
@@ -13,10 +13,13 @@ import { NotificationService } from '@share/services/notification.service';
 
 export class CategoryDetailComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
+  nodes: any[];
+  selectedNodes: any[];
   public form: FormGroup;
   blockedPanel: boolean = false;
-  btnDisabled: boolean = false;
-  selectedEntity = { name: "", sku: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "", isActive: false, isFeatured: false } as ProductCategoryDto;
+  btnDisabled: boolean = true;
+  isHiddenDelete: boolean = false;
+  selectedEntity = { name: "", parentId: null, sku: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "", isActive: false, isFeatured: false } as ProductCategoryDto;
 
 
   constructor(
@@ -26,6 +29,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private productCategoriesService: ProductCategoriesService,
     private ref: DynamicDialogRef,
     private notificationService: NotificationService,
+    private confirmationService: ConfirmationService
   ) { this.buildForm(); }
 
 
@@ -37,6 +41,10 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   };
   ngOnInit(): void {
     this.buildForm();
+    this.getListTree();
+    if (this.utilService.isEmpty(this.config.data?.id) == false) {
+      this.loadFormDetail(this.config.data?.id);
+    }
   }
 
   showDialog() {
@@ -47,8 +55,86 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     return (event.target as HTMLInputElement).value;
   }
 
+  onSelectedNodes(value) {
+    this.selectedNodes = value.node
+  }
+
+  loadFormDetail(id) {
+    this.isHiddenDelete = true;
+    this.toggleBlockUI(true);
+    this.productCategoriesService.get(id)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (rsp) => {
+          this.selectedEntity = rsp;
+          this.buildForm();
+          this.toggleBlockUI(false);
+        },
+        error: (error) => {
+          this.notificationService.showError(error.error.error.message);
+          this.toggleBlockUI(false);
+        }
+      })
+  }
+
+  getListTree() {
+    this.productCategoriesService.getListTree()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (rsp) => {
+          this.nodes = rsp;
+          this.toggleBlockUI(false);
+        },
+        error: (error) => {
+          this.notificationService.showError(error.error.error.message);
+          this.toggleBlockUI(false);
+        }
+      })
+
+  }
+
+  handleDelete() {
+    this.toggleBlockUI(true);
+    this.productCategoriesService.delete(this.config.data.id)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: () => {
+          this.toggleBlockUI(false);
+          this.notificationService.showSuccess("You have delete success");
+          this.form = null;
+          this.ref.close({ isHiddenDelete: this.isHiddenDelete, id: null })
+        },
+        error: (error) => {
+          this.notificationService.showError(error.error.error.message);
+          this.toggleBlockUI(false);
+        }
+      })
+  }
+
+  confirmDelete() {
+    this.confirmationService.confirm({
+      message: 'Bạn có muốn xóa danh mục này không?',
+      header: 'Xác nhận xoá',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.handleDelete();
+      },
+      reject: (type) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+
+            break;
+        }
+      }
+    });
+  }
+
   saveChange() {
     this.toggleBlockUI(true)
+    if (this.form.value.parentId != null) {
+      this.form.value.parentId = this.form.value.parentId['id'];
+    }
+
     if (this.utilService.isEmpty(this.config.data?.id) == true) {
       this.productCategoriesService.create(this.form.value)
         .pipe(takeUntil(this.ngUnsubscribe))
@@ -73,7 +159,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.blockedPanel = false;
         this.btnDisabled = false;
-      }, 1000);
+      }, 300);
     }
   }
 
@@ -89,6 +175,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
       metaTitle: new FormControl(this.selectedEntity.metaTitle),
       slug: new FormControl(this.selectedEntity.slug),
       coverPicture: new FormControl(this.selectedEntity.coverPicture),
+      parentId: new FormControl(this.selectedEntity.parentId),
     })
   }
 }

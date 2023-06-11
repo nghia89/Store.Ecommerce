@@ -1,6 +1,4 @@
 <form [formGroup]="form" skipValidation (ngSubmit)="saveChange()">
-
-    <!--form grid-->
     <div class="formgrid grid">
         <div class="field col-12">
             <label for="name" class="block">Tên <span class="required">*</span></label>
@@ -15,6 +13,14 @@
             <input id="sku" pInputText type="text" class="w-full" formControlName="sku" />
             <app-validation-message [entityForm]="form" fieldName="sku"
                 [validationMessages]="validationMessages"></app-validation-message>
+        </div>
+        <div class="field col-12">
+            <label for="parentId" class="block">Danh mục cha </label>
+            <p-treeSelect class="md:w-20rem w-full" (onNodeSelect)="onSelectedNodes($event)" [(ngModel)]="selectedNodes"
+                selectionMode="single" containerStyleClass="w-full" [options]="nodes" placeholder="Chọn danh mục"
+                [showClear]="true" formControlName="parentId" [filter]="true" [filterInputAutoFocus]="true"
+                scrollHeight="250px">
+            </p-treeSelect>
         </div>
         <div class="field col-12">
             <label for="sortOrder" class="block">Thứ tự <span class="required">*</span></label>
@@ -43,40 +49,15 @@
             <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
         </div>
 
-        <div class="field col-12">
-            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
-            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
-                class="w-full" formControlName="metaTitle"></textarea>
-            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
-        </div>
-        <div class="field col-12">
-            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
-            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
-                class="w-full" formControlName="metaTitle"></textarea>
-            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
-        </div>
-        <div class="field col-12">
-            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
-            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
-                class="w-full" formControlName="metaTitle"></textarea>
-            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
-        </div>
-        <div class="field col-12">
-            <label for="metaTitle" class="block">Thẻ tiêu đề</label>
-            <textarea id="metaTitle" pInputTextarea maxlength="250" (input)="selectedEntity.metaTitle=getValue($event)"
-                class="w-full" formControlName="metaTitle"></textarea>
-            <div class="p-1 p-input-icon-right">{{selectedEntity.metaTitle.length}}/250</div>
-        </div>
-
     </div>
-    <p-dialog-footer>
-        <button type="submit" [disabled]="!form.valid || btnDisabled " pButton icon="fa fa-save" iconPos="left"
-            label="Lưu lại"></button>
-    </p-dialog-footer>
 
-    <!--Block UI-->
     <p-blockUI [blocked]="blockedPanel">
         <p-progressSpinner></p-progressSpinner>
     </p-blockUI>
-
+    <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
+        <span class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete" pButton
+            style="background-color: #ff0000" icon="fa fa-trash" iconPos="left" label="Xoá"></span>
+        <button type="submit" [disabled]="!form.valid || btnDisabled " pButton icon="fa fa-save" iconPos="left"
+            label="Lưu lại"></button>
+    </div>
 </form>

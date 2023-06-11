@@ -108,6 +108,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
                 listTree.Add(new ProductCategoryTreeDto
                 {
                     Id = item.Id,
+                    Parent=item.ParentId,
                     Label = item.Name,
                     Children = getChildren(listAll, item.Id)
                 });
@@ -127,6 +128,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
                 var childNode = new ProductCategoryTreeDto
                 {
                     Id = item.Id,
+                    Parent=item.ParentId,
                     Label = item.Name,
                     Children = getChildren(listAll, item.Id)
                 };

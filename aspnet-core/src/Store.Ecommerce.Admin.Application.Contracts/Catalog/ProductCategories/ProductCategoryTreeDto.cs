@@ -8,6 +8,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
     {
         public int Id { get; set; }
         public string Label { get; set; }
+        public int? Parent { get; set; }
         public string ExpandedIcon { get; set; } = "pi pi-folder-open";
         public string collapsedIcon { get; set; } = "pi pi-folder";
         public List<ProductCategoryTreeDto> Children { get; set; }
