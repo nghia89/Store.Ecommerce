@@ -55,8 +55,8 @@
         <p-progressSpinner></p-progressSpinner>
     </p-blockUI>
     <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
-        <span class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete" pButton
-            style="background-color: #ff0000" icon="fa fa-trash" iconPos="left" label="Xoá"></span>
+        <button type="button" class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete" pButton
+            style="background-color: #ff0000" icon="fa fa-trash" iconPos="left" label="Xoá"></button>
         <button type="submit" [disabled]="!form.valid || btnDisabled " pButton icon="fa fa-save" iconPos="left"
             label="Lưu lại"></button>
     </div>
