@@ -17,10 +17,11 @@ import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { AbpOAuthModule } from '@abp/ng.oauth';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { NotificationService } from '@share/services/notification.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
 import { UtilityService } from '@share/services/utility.service';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   imports: [
@@ -40,10 +41,11 @@ import { UtilityService } from '@share/services/utility.service';
     SettingManagementConfigModule.forRoot(),
     ThemeBasicModule.forRoot(),
     FeatureManagementModule.forRoot(),
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER, MessageService, NotificationService, DialogService, UtilityService],
+  providers: [APP_ROUTE_PROVIDER, MessageService, NotificationService, DialogService, UtilityService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

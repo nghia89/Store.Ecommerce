@@ -54,16 +54,16 @@ export class CategoryComponent implements OnInit, OnDestroy {
     } else {
       setTimeout(() => {
         this.isLoading = false;
-      }, 500);
+      }, 300);
     }
   }
 
-  onAddNew() {
+  onAddNewOrUpdate(id?: number) {
     var ref = this.dialogService.open(CategoryDetailComponent, {
       data: {
-        id: 0
+        id: id
       },
-      header: 'Add new category',
+      header: id ? 'Update category' : 'Add new category',
       width: '60%',
       modal: true,
       contentStyle: { overflow: 'auto' },
@@ -71,17 +71,21 @@ export class CategoryComponent implements OnInit, OnDestroy {
       resizable: false
     })
     ref.onClose.subscribe((data: CategoryDetailComponent) => {
-      if (data) {
+      if (data.isHiddenDelete) {
         this.toggleBlockUI(true)
         this.getData();
-        this.notificationService.showSuccess('Add new category success');
+      }
+      else if (data) {
+        this.toggleBlockUI(true)
+        this.getData();
+        this.notificationService.showSuccess(id ? 'Update category success' : 'Add new category success');
       }
     });
   }
 
 
   onNodeSelect(event: any) {
-    console.log('event', event)
+    this.onAddNewOrUpdate(event.node.id)
   }
 
 }
