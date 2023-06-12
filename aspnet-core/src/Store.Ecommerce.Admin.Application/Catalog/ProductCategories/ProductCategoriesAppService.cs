@@ -31,6 +31,15 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             _categoryManager = categoryManager;
         }
 
+        public override async Task DeleteAsync(int id)
+        {
+            var entity = await this.GetEntityByIdAsync(id);
+            if (entity != null && entity.IsDeleted == false)
+            {
+                entity.IsDeleted = true;
+                await _repository.UpdateAsync(entity);
+            }
+        }
         public override async Task<ProductCategoryDto> CreateAsync(CreateUpdateProductCategoryDto input)
         {
             var createEntity = ObjectMapper.Map<CreateUpdateProductCategoryDto, Category>(input);
@@ -92,7 +101,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public async Task<List<ProductCategoryInListDto>> GetListAllAsync(string? Keyword)
         {
             var query = await Repository.GetQueryableAsync();
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(Keyword), x => x.Name.Contains(Keyword));
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(Keyword), x => x.IsDeleted == false && x.Name.Contains(Keyword));
             var data = await AsyncExecuter.ToListAsync(query);
             return ObjectMapper.Map<List<Category>, List<ProductCategoryInListDto>>(data);
         }
