@@ -18,6 +18,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public string MetaDescription { get; set; }
         public string MetaTitle { get; set; }
         public int? ParentId { get; set; }
+        public ProductCategoryTreeDto Parent { get; set; }
         public string TreePath { get; set; } = string.Empty;
         public int Id { get; set; }
     }

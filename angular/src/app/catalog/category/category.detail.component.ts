@@ -14,7 +14,7 @@ import { NotificationService } from '@share/services/notification.service';
 export class CategoryDetailComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   nodes: any[];
-  selectedNodes: any[];
+  selectedNodes: any;
   public form: FormGroup;
   blockedPanel: boolean = false;
   btnDisabled: boolean = true;
@@ -68,6 +68,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         next: (rsp) => {
           this.selectedEntity = rsp;
           this.buildForm();
+          this.selectedNodes = rsp.parent
           this.toggleBlockUI(false);
         },
         error: (error) => {
@@ -148,6 +149,19 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
             this.toggleBlockUI(false);
           }
         })
+    } else {
+      this.productCategoriesService.update(this.config.data?.id, this.form.value)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe({
+          next: () => {
+            this.toggleBlockUI(false);
+            this.ref.close(this.form.value)
+          },
+          error: (error) => {
+            this.notificationService.showError(error.error.error.message);
+            this.toggleBlockUI(false);
+          }
+        })
     }
   }
 
@@ -167,7 +181,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       code: new FormControl(this.selectedEntity.code),
       name: new FormControl(this.selectedEntity.name, Validators.required),
-      sku: new FormControl(this.selectedEntity.sku),
+      sku: new FormControl(this.selectedEntity.sku || ""),
       sortOrder: new FormControl(this.selectedEntity.sortOrder),
       isActive: new FormControl(this.selectedEntity.isActive),
       isFeatured: new FormControl(this.selectedEntity.isFeatured),

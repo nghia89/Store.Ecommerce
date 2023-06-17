@@ -37,6 +37,7 @@ export interface ProductCategoryDto {
   metaDescription?: string;
   metaTitle?: string;
   parentId?: number;
+  parent: ProductCategoryTreeDto;
   treePath?: string;
   id: number;
 }
@@ -59,6 +60,7 @@ export interface ProductCategoryInListDto extends EntityDto<number> {
 export interface ProductCategoryTreeDto {
   id: number;
   label?: string;
+  parent?: number;
   expandedIcon?: string;
   collapsedIcon?: string;
   children: ProductCategoryTreeDto[];

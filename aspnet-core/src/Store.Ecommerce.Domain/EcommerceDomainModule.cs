@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Store.Ecommerce.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -14,6 +14,9 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.BlobStoring;
+using Microsoft.Extensions.Configuration;
+using Volo.Abp.BlobStoring.Azure;
 
 namespace Store.Ecommerce;
 
@@ -30,6 +33,8 @@ namespace Store.Ecommerce;
     typeof(AbpTenantManagementDomainModule),
     typeof(AbpEmailingModule)
 )]
+[DependsOn(typeof(AbpBlobStoringModule))]
+[DependsOn(typeof(AbpBlobStoringAzureModule))]
 public class EcommerceDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -45,9 +50,41 @@ public class EcommerceDomainModule : AbpModule
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
+        var configuration = context.Services.GetConfiguration();
+        ConfigureAzureStorageAccountOptions(context, configuration);
+        ConfigureAbpBlobStoringOptions(configuration);
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
+    }
+
+    private void ConfigureAbpBlobStoringOptions(IConfiguration configuration)
+    {
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            var azureStorageConnectionString = configuration["AzureStorageAccountSettings:ConnectionString"];
+            options.Containers.Configure<ProfilePictureContainer>(container =>
+            {
+                container.UseAzure(azure =>
+                    {
+                        azure.ConnectionString = azureStorageConnectionString;
+                        azure.CreateContainerIfNotExists = true;
+                    });
+            });
+        });
+    }
+
+
+    private void ConfigureAzureStorageAccountOptions(ServiceConfigurationContext context, IConfiguration configuration)
+    {
+        Configure<AzureStorageAccountOptions>(options =>
+        {
+            var azureStorageConnectionString = configuration["AzureStorageAccountSettings:ConnectionString"];
+            var azureStorageAccountUrl = configuration["AzureStorageAccountSettings:AccountUrl"];
+
+            options.ConnectionString = azureStorageConnectionString;
+            options.AccountUrl = azureStorageAccountUrl;
+        });
     }
 }

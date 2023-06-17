@@ -33,7 +33,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Store.Ecommerce.Admin;
 
 [DependsOn(
-    typeof(EcommerceHttpApiModule),
+    // typeof(EcommerceHttpApiModule),
     typeof(AbpAutofacModule),
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpDistributedLockingModule),

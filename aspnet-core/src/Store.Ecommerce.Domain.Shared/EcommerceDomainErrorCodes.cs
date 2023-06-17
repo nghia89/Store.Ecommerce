@@ -2,5 +2,8 @@
 
 public static class EcommerceDomainErrorCodes
 {
-    /* You can add your business exception error codes here, as constants */
+    public const string ProductIsNotExists = "Ecommerce:ProductIsNotExists";
+    public const string CategoryIsNotExists = "Ecommerce:CategoryIdIsNotExists";
+    public const string CategoryIdEqualParentId = "Ecommerce:CategoryIdEqualParentId";
+
 }

@@ -40,9 +40,9 @@ namespace Store.Ecommerce.Catalog.Categories
                 category.TreePath = category.Id.ToString();
             }
 
-            await _repository.UpdateAsync(category, true);
 
             // Cập nhật lại treepath của danh mục con
+            await _repository.UpdateAsync(category);
             var childCategories = await _repository.GetListAsync(c => c.ParentId == category.Id);
 
             foreach (var childCategory in childCategories)

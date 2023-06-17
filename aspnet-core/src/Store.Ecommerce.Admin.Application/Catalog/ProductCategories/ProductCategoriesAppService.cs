@@ -31,6 +31,21 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             _categoryManager = categoryManager;
         }
 
+        public override async Task<ProductCategoryDto> GetAsync(int id)
+        {
+            var model = await base.GetAsync(id);
+            if (model.ParentId != null)
+            {
+                var parent = await base.GetAsync(model.ParentId.Value);
+                if (parent != null)
+                    model.Parent = new ProductCategoryTreeDto
+                    {
+                        Id = parent.Id,
+                        Label = parent.Name
+                    };
+            }
+            return model;
+        }
         public override async Task DeleteAsync(int id)
         {
             var entity = await this.GetEntityByIdAsync(id);
@@ -75,8 +90,10 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public override async Task<ProductCategoryDto> UpdateAsync(int id, CreateUpdateProductCategoryDto input)
         {
             var category = await base.GetEntityByIdAsync(id);
-            if (category != null)
-                throw new BusinessException("CategoryIsNotExists");
+            if (category == null)
+                throw new BusinessException(EcommerceDomainErrorCodes.CategoryIsNotExists);
+            if (input.ParentId == id)
+                throw new BusinessException(EcommerceDomainErrorCodes.CategoryIdEqualParentId);
             var parentId = category.ParentId;
 
             category.Name = input.Name;
@@ -91,7 +108,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             category.MetaDescription = input.MetaDescription;
 
             await _repository.UpdateAsync(category, true);
-
+            await UnitOfWorkManager.Current.CompleteAsync();
             if (parentId != input.ParentId)
                 _categoryManager.UpdateTreePath(category);
 
@@ -117,7 +134,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
                 listTree.Add(new ProductCategoryTreeDto
                 {
                     Id = item.Id,
-                    Parent=item.ParentId,
+                    Parent = item.ParentId,
                     Label = item.Name,
                     Children = getChildren(listAll, item.Id)
                 });
@@ -137,7 +154,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
                 var childNode = new ProductCategoryTreeDto
                 {
                     Id = item.Id,
-                    Parent=item.ParentId,
+                    Parent = item.ParentId,
                     Label = item.Name,
                     Children = getChildren(listAll, item.Id)
                 };

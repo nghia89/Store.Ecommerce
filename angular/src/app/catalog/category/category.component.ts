@@ -37,7 +37,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe({
         next: (rsp) => {
-          this.files = rsp;
+          this.files = rsp as TreeNode[];
           this.toggleBlockUI(false);
         },
         error: (error) => {
