@@ -19,6 +19,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FileUploadModule } from 'primeng/fileupload';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -44,7 +45,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
         InputTextareaModule,
         BlockUIModule,
         TreeSelectModule,
-        ConfirmDialogModule
+        ConfirmDialogModule,
+        FileUploadModule
     ],
     entryComponents: [CategoryDetailComponent]
 })

@@ -120,4 +120,33 @@ export class UtilityService {
         }
         return data;
     }
+
+    // Function to convert file to byte array
+    convertFileToByteArray(file: File): Promise<Uint8Array> {
+        return new Promise<Uint8Array>((resolve, reject) => {
+            const reader = new FileReader();
+
+            // Set up event listeners for when the file is loaded
+            reader.onload = (event: any) => {
+                // Get the file data as an ArrayBuffer
+                const buffer = event.target.result as ArrayBuffer;
+                // Convert the ArrayBuffer to a Uint8Array
+                const byteArray = new Uint8Array(buffer);
+
+                // Resolve the promise with the byte array
+                resolve(byteArray);
+            };
+
+            // Handle any errors that occur during file reading
+            reader.onerror = (event) => {
+                reject(event.target.error);
+            };
+
+            // Read the file as an ArrayBuffer
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+
 }
+
