@@ -147,6 +147,29 @@ export class UtilityService {
         });
     }
 
+    fileToBase64(file: File): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+
+            // Set up the onload event handler
+            reader.onload = () => {
+                const base64String = reader.result?.toString()?.split(',')[1]; // Extract the Base64 data from the Data URL
+                if (base64String) {
+                    resolve(base64String);
+                } else {
+                    reject(new Error('Failed to convert the file to Base64.'));
+                }
+            };
+
+            // Set up the onerror event handler
+            reader.onerror = () => {
+                reject(new Error('Failed to read the file.'));
+            };
+
+            // Read the file as Data URL
+            reader.readAsDataURL(file);
+        });
+    }
 
 }
 

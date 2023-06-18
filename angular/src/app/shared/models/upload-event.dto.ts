@@ -13,6 +13,6 @@ export interface FileModel {
     fileName?: string;
     extension?: string;
     type?: string;
-    guiId?: number;
+    id?: string;
     postSuccess?: boolean;
 }

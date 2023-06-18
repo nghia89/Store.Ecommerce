@@ -25,16 +25,16 @@ public class PictureContainerManager : DomainService
     public async Task<string> SaveAsync(string fileName, byte[] byteArray, bool overrideExisting = false)
     {
         var extension = Path.GetExtension(fileName);
-        var storageFileName = $"{Path.GetFileNameWithoutExtension(fileName)}_{Guid.NewGuid()}{extension}";
+        var storageFileName = $"{Path.GetFileNameWithoutExtension(fileName)}-{Guid.NewGuid()}{extension}";
         await _pictureContainer.SaveAsync(storageFileName, byteArray, overrideExisting);
-        await UploadAndCreateThumbnailAsync(fileName, byteArray);
+        await UploadAndCreateThumbnailAsync(storageFileName, byteArray);
         return storageFileName;
     }
 
     public async Task UploadAndCreateThumbnailAsync(string fileName, byte[] byteArray, int thumbnailSize = 320)
     {
         var extension = Path.GetExtension(fileName);
-        var storageFileName = $"{GetThumbnailFileName(fileName)}_{Guid.NewGuid()}{extension}";
+        var storageFileName = $"{GetThumbnailFileName(fileName)}";
 
         using (var image = Image.Load(byteArray))
         {

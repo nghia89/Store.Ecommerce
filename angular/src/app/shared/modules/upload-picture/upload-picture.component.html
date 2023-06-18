@@ -5,19 +5,22 @@
         <input class="file-input" type="file" #fileUpload id="uploadFile" (change)="uploadFileEvt($event)"
             name="uploadFile" multiple="{{isMultiple}}" accept="image/*" />
     </div>
-    <div class=" flex justify-content-center" *ngIf="listFile">
+    <div class="  justify-content-center" *ngIf="listFile">
         <div class="p-3 col flex justify-content-center">
-            <div class="card p-2 col-8 p-fileupload-row ng-star-inserted flex align-items-center"
+            <div class="card p-2 col-10 p-fileupload-row ng-star-inserted flex align-items-center"
                 *ngFor="let item of listFile">
                 <div class="col-3 ">
                     <img src="{{item.path}}" width="100" class="ng-star-inserted">
                 </div>
                 <div class=" col-7 p-fileupload-filename">{{item.fileName}}</div>
                 <div class="col-2">
-                    <p-button icon="pi pi-plus" label="Xóa"></p-button>
+                    <p-button icon="pi pi-plus" (click)="onDeleteFile(item.id)" label="Xóa"></p-button>
                 </div>
             </div>
+        </div>
+        <div *ngIf="isProcessing">
             <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+
         </div>
     </div>
 </div>

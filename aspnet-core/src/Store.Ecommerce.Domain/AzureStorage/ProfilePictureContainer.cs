@@ -3,7 +3,7 @@ using Volo.Abp.BlobStoring;
 
 namespace Store.Ecommerce;
 
-[BlobContainerName("profile-pictures")]
+[BlobContainerName("pictures")]
 public class ProfilePictureContainer
 {
 

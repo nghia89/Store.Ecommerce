@@ -6,7 +6,7 @@ export interface BaseListFilterDto extends PagedResultRequestDto {
 
 export interface SavePictureDto {
   fileName?: string;
-  content: number[];
+  content: string;
 }
 
 export interface SavedPictureDto {
