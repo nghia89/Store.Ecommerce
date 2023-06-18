@@ -23,13 +23,7 @@
             </p-treeSelect>
         </div>
         <div class="field col-12">
-            <div class="card flex justify-content-center">
-
-                <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]"
-                    url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000"
-                    (onUpload)="onUpload($event)"></p-fileUpload>
-            </div>
-
+            <app-upload-picture [hero]="selectedHero"></app-upload-picture>
         </div>
         <div class="field col-12">
             <label for="sortOrder" class="block">Thứ tự <span class="required">*</span></label>
