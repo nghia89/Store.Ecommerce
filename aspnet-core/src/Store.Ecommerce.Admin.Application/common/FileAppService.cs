@@ -15,15 +15,17 @@ public class FileAppService : ApplicationService, IFileAppService
 {
     private readonly PictureContainerManager _pictureContainerManager;
 
-    public FileAppService( PictureContainerManager pictureContainerManager)
+    public FileAppService(PictureContainerManager pictureContainerManager)
     {
         _pictureContainerManager = pictureContainerManager;
     }
 
     public async Task<SavedPictureDto> SavePicture(SavePictureDto input)
     {
+        if (string.IsNullOrEmpty(input.FileName)) return new SavedPictureDto { StorageFileName = "" };
+
         byte[] byteArray = Convert.FromBase64String(input.Content);
-        var storageFileName = await _pictureContainerManager.SaveAsync(input.FileName, byteArray, true);
+        var storageFileName = await _pictureContainerManager.SaveAsync(input.FileName.Slugify(), byteArray);
         return new SavedPictureDto { StorageFileName = storageFileName };
     }
 }

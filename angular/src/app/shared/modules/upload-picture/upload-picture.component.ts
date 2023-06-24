@@ -50,7 +50,6 @@ export class UploadPictureComponent {
         console.log(fileBase64)
         await this.HandleUploadFileServer(newFile.id, fileBase64, newFile.fileName);
         URL.revokeObjectURL(file)
-        this.isProcessing = false
       }
     }
   }
