@@ -20,12 +20,18 @@ public class FileAppService : ApplicationService, IFileAppService
         _pictureContainerManager = pictureContainerManager;
     }
 
+    public async Task DeleteAsync(string pathFile)
+    {
+        if (string.IsNullOrEmpty(pathFile)) return;
+        await _pictureContainerManager.DeleteAsync(pathFile);
+    }
+
     public async Task<SavedPictureDto> SavePicture(SavePictureDto input)
     {
         if (string.IsNullOrEmpty(input.FileName)) return new SavedPictureDto { StorageFileName = "" };
 
         byte[] byteArray = Convert.FromBase64String(input.Content);
-        var storageFileName = await _pictureContainerManager.SaveAsync(input.FileName.Slugify(), byteArray);
+        var storageFileName = await _pictureContainerManager.SaveAsync(input.FileName, byteArray);
         return new SavedPictureDto { StorageFileName = storageFileName };
     }
 }

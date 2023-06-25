@@ -1,9 +1,10 @@
 <label class="block pb-2">{{label || 'Hình ảnh'}}</label>
-<div class="card" *ngIf="hero">
+<div class="card">
     <div class=" flex  justify-content-center">
-        <p-button icon="pi pi-plus" (click)="fileUpload.click()" label="Choose"></p-button>
-        <input class="file-input" type="file" #fileUpload id="uploadFile" (change)="uploadFileEvt($event)"
-            name="uploadFile" multiple="{{isMultiple}}" accept="image/*" />
+        <p-button [disabled]="isDisable" icon="pi pi-plus" (click)="!isDisable && fileUpload.click()"
+            label="Choose"></p-button>
+        <input class="file-input" [(ngModel)]="uploadFile" type="file" #fileUpload id="uploadFile"
+            (change)="uploadFileEvt($event)" name="uploadFile" multiple="{{isMultiple}}" accept="image/*" />
     </div>
     <div class="  justify-content-center" *ngIf="listFile">
         <div class="p-3 col flex justify-content-center">

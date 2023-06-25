@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
@@ -30,7 +31,7 @@ public class PictureContainerManager : DomainService
         var extension = Path.GetExtension(fileName);
         // var storageFileName = $"{Path.GetFileNameWithoutExtension(fileName)}-{Guid.NewGuid()}{extension}";
         var storageFileName = $"{Guid.NewGuid()}{extension}";
-        var thumbnailBlobClient = _containerClient.GetBlobClient(storageFileName);
+        var blobClient = _containerClient.GetBlobClient(storageFileName);
         BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
         {
             HttpHeaders = new BlobHttpHeaders()
@@ -38,9 +39,17 @@ public class PictureContainerManager : DomainService
                 ContentType = "image/jpeg"
             }
         };
-        var result = await thumbnailBlobClient.UploadAsync(new BinaryData(byteArray), blobUploadOptions);
+        await blobClient.UploadAsync(new BinaryData(byteArray), blobUploadOptions);
         await UploadAndCreateThumbnailAsync(storageFileName, byteArray);
-        return thumbnailBlobClient.Uri.ToString();
+        return blobClient.Uri.ToString();
+    }
+
+    public async Task DeleteAsync(string pathFile)
+    {
+        var fileId = pathFile.Split("/").Last();
+        _containerClient.DeleteBlobIfExists(fileId);
+        _containerClient.DeleteBlobIfExists($"{GetThumbnailFileName(fileId)}");
+        await Task.CompletedTask;
     }
 
     public async Task UploadAndCreateThumbnailAsync(string fileName, byte[] byteArray, int thumbnailSize = 320)
@@ -48,28 +57,24 @@ public class PictureContainerManager : DomainService
         var storageFileName = $"{GetThumbnailFileName(fileName)}";
         var thumbnailBlobClient = _containerClient.GetBlobClient(storageFileName);
 
-        using (var image = Image.Load(byteArray))
+        using var image = Image.Load(byteArray);
+        image.Mutate(x => x.Resize(new ResizeOptions
         {
-            image.Mutate(x => x.Resize(new ResizeOptions
-            {
-                Size = new Size(thumbnailSize),
-                Mode = ResizeMode.Max
-            }));
+            Size = new Size(thumbnailSize),
+            Mode = ResizeMode.Max
+        }));
 
-            using (var thumbnailStream = new MemoryStream())
+        using var thumbnailStream = new MemoryStream();
+        image.Save(thumbnailStream, new JpegEncoder());
+        thumbnailStream.Position = 0;
+        BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+        {
+            HttpHeaders = new BlobHttpHeaders()
             {
-                image.Save(thumbnailStream, new JpegEncoder());
-                thumbnailStream.Position = 0;
-                BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
-                {
-                    HttpHeaders = new BlobHttpHeaders()
-                    {
-                        ContentType = "image/jpeg"
-                    }
-                };
-                await thumbnailBlobClient.UploadAsync(new BinaryData(thumbnailStream.ToArray()), blobUploadOptions);
+                ContentType = "image/jpeg"
             }
-        }
+        };
+        await thumbnailBlobClient.UploadAsync(new BinaryData(thumbnailStream.ToArray()), blobUploadOptions);
     }
 
     private string GetThumbnailFileName(string fileName)

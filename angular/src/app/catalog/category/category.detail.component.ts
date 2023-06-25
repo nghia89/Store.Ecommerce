@@ -6,7 +6,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UtilityService } from '@share/services/utility.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NotificationService } from '@share/services/notification.service';
-import { Hero, UploadEvent } from '@share/models/upload-event.dto';
+import { UploadEvent } from '@share/models/upload-event.dto';
 @Component({
   selector: 'app-category',
   templateUrl: './category.detail.component.html'
@@ -22,7 +22,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   btnDisabled: boolean = true;
   isHiddenDelete: boolean = false;
   selectedEntity = { name: "", parentId: null, sku: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "", isActive: false, isFeatured: false } as ProductCategoryDto;
-  selectedHero: Hero = { id: 'aaaa', name: 'ssdsds' }
 
   constructor(
     private config: DynamicDialogConfig,
@@ -59,6 +58,10 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
 
   onSelectedNodes(value) {
     this.selectedNodes = value.node
+  }
+
+  public OnFileSelect = (files) => {
+    console.log('files', files)
   }
 
   loadFormDetail(id) {

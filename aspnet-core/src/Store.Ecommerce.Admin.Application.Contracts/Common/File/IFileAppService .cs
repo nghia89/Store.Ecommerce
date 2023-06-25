@@ -7,5 +7,6 @@ namespace Store.Ecommerce
     public interface IFileAppService
     {
         Task<SavedPictureDto> SavePicture(SavePictureDto input);
+        Task DeleteAsync(string pathFile);
     }
 }

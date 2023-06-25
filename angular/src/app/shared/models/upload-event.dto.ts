@@ -2,10 +2,6 @@ export interface UploadEvent {
     originalEvent: Event;
     files: File[];
 }
-export interface Hero {
-    name: string
-    id: string
-}
 
 export interface FileModel {
     path: any;

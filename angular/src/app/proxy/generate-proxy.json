@@ -35,11 +35,65 @@
                     "type": "Store.Ecommerce.SavedPictureDto",
                     "typeSimple": "Store.Ecommerce.SavedPictureDto"
                   }
+                },
+                {
+                  "name": "DeleteAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "pathFile",
+                      "typeAsString": "System.String, System.Private.CoreLib",
+                      "type": "System.String",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "System.Void",
+                    "typeSimple": "System.Void"
+                  }
                 }
               ]
             }
           ],
           "actions": {
+            "DeleteAsyncByPathFile": {
+              "uniqueName": "DeleteAsyncByPathFile",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/app/file",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "pathFile",
+                  "typeAsString": "System.String, System.Private.CoreLib",
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "pathFile",
+                  "name": "pathFile",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Store.Ecommerce.IFileAppService"
+            },
             "SavePictureByInput": {
               "uniqueName": "SavePictureByInput",
               "name": "SavePicture",
@@ -6203,8 +6257,8 @@
         {
           "name": "Content",
           "jsonName": null,
-          "type": "[System.Byte]",
-          "typeSimple": "[number]",
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
