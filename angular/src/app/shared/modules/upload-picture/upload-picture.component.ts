@@ -1,6 +1,6 @@
 import { uuid } from '@abp/ng.core';
 import { HttpHeaders } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SavePictureDto } from '@proxy';
 import { FileService } from '@proxy/catalog/image-uploader';
 import { FileModel } from '@share/models/upload-event.dto';
@@ -20,7 +20,7 @@ export class UploadPictureComponent {
   @Input() label?: string
   @Input() isMultiple?: boolean
   @Input() maxNumberFile?: number = 5
-  @Input() public OnFileSelect: (param: any) => void;
+  @Output() onFileSelect = new EventEmitter<FileModel[]>
   uploadFile = ""
   isProcessing: boolean;
   listFile: FileModel[] = []
@@ -34,7 +34,7 @@ export class UploadPictureComponent {
   }
 
   public theCallback() {
-    this.OnFileSelect(this.listFile);
+    this.onFileSelect.emit(this.listFile);
   }
 
   async onDeleteFile(id) {

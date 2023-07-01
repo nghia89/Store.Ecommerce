@@ -20,6 +20,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
+import { IkImageComponent } from 'imagekitio-angular'
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -47,6 +48,7 @@ import { FileUploadModule } from 'primeng/fileupload';
         TreeSelectModule,
         ConfirmDialogModule,
         FileUploadModule
+
     ],
     entryComponents: [CategoryDetailComponent]
 })

@@ -23,7 +23,10 @@
             </p-treeSelect>
         </div>
         <div class="field col-12">
-            <app-upload-picture [OnFileSelect]="OnFileSelect"></app-upload-picture>
+            <ik-image
+                src="https://ik.imagekit.io/estore/anonymous-1447907195159-c8380b95-389a-477c-8cd9-da94bb8d5b66_tn.jpg">
+            </ik-image>
+            <app-upload-picture (onFileSelect)="OnFileSelect($event)"></app-upload-picture>
         </div>
         <div class="field col-12">
             <label for="sortOrder" class="block">Thứ tự <span class="required">*</span></label>

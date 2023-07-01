@@ -61,7 +61,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   }
 
   public OnFileSelect = (files) => {
-    console.log('files', files)
+
   }
 
   loadFormDetail(id) {
@@ -133,14 +133,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-
-  async onUpload(event: UploadEvent) {
-    if (event && event.files) {
-      let file = event.files[0]
-      let bytes = await this.utilService.convertFileToByteArray(file);
-      console.log(bytes);
-    }
   }
 
 

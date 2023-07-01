@@ -2273,11 +2273,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/uuid@^9.0.2":
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.2.tgz#ede1d1b1e451548d44919dc226253e32a6952c4b"
-  integrity sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==
-
 "@types/ws@^8.5.1":
   version "8.5.4"
   resolved "https://registry.npmjs.org/@types/ws/-/ws-8.5.4.tgz"
@@ -4748,6 +4743,18 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.npmjs.org/image-size/-/image-size-0.5.5.tgz"
   integrity sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==
+
+imagekit-javascript@^1.5.4:
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/imagekit-javascript/-/imagekit-javascript-1.5.5.tgz#2b31994111eb94426ba1abf527774af11e0decb4"
+  integrity sha512-WnEq7zIiYx+bN1fUzLEqSD33xOCEhHpDmlo3SxQkXPiLBnnnLGhBZi583wNhBXP3RB/yQQEKOBeOelnZ7WVgPA==
+
+imagekitio-angular@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/imagekitio-angular/-/imagekitio-angular-2.0.0.tgz#461d6838e4fd3a01649da62bcad191ad7592c2a0"
+  integrity sha512-pJdEfSZ3K3XlRbJ8bPKbZS9tti0wXSWsZ0dslIXvJUF3Ar3edeKrU/hHjQrY/iwIGZM3M6G8mB3NSs/8kUgU3Q==
+  dependencies:
+    imagekit-javascript "^1.5.4"
 
 immutable@^4.0.0:
   version "4.3.0"

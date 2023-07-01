@@ -22,17 +22,24 @@ import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
 import { UtilityService } from '@share/services/utility.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ImagekitioAngularModule } from 'imagekitio-angular';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AppLayoutModule,
     CoreModule.forRoot({
       environment,
       registerLocaleFn: registerLocale(),
     }),
+    ImagekitioAngularModule.forRoot({
+      publicKey: "public_OynjbKQaLjIk1GdtAZ5kAacjHGE=",
+      urlEndpoint: "https://ik.imagekit.io/estore",
+      authenticationEndpoint: "private_5nuYxzoES0+WUfEZM+f6Bmb4oGM="
+    }),
+    AppLayoutModule,
+
     AbpOAuthModule.forRoot(),
     ThemeSharedModule.forRoot(),
     AccountConfigModule.forRoot(),

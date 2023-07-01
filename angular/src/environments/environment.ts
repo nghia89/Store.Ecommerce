@@ -24,4 +24,9 @@ export const environment = {
       rootNamespace: 'Store.Ecommerce',
     },
   },
+  imagekiti: {
+    publicKey: "public_OynjbKQaLjIk1GdtAZ5kAacjHGE=",
+    urlEndpoint: "https://ik.imagekit.io/estore/",
+    authenticationEndpoint: "private_5nuYxzoES0+WUfEZM+f6Bmb4oGM="
+  }
 } as Environment;
