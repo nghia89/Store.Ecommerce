@@ -14,10 +14,10 @@ export interface CeateUpdateCateSpeAttributeDto {
 export interface CreateUpdateProductCategoryDto {
   name?: string;
   code?: string;
-  sku?: string;
   slug?: string;
   sortOrder: number;
   coverPicture?: string;
+  coverPictureId?: string;
   isFeatured: boolean;
   isActive: boolean;
   metaDescription?: string;
@@ -29,9 +29,9 @@ export interface ProductCategoryDto {
   name?: string;
   code?: string;
   slug?: string;
-  sku?: string;
   sortOrder: number;
   coverPicture?: string;
+  coverPictureId?: string;
   isFeatured: boolean;
   isActive: boolean;
   metaDescription?: string;
@@ -48,6 +48,7 @@ export interface ProductCategoryInListDto extends EntityDto<number> {
   slug?: string;
   sortOrder: number;
   coverPicture?: string;
+  coverPictureId?: string;
   isFeatured: boolean;
   isActive: boolean;
   metaDescription?: string;

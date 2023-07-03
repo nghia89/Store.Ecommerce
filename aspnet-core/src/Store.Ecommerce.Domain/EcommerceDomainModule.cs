@@ -17,6 +17,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.BlobStoring;
 using Microsoft.Extensions.Configuration;
 using Volo.Abp.BlobStoring.Azure;
+using Store.Ecommerce.Settings;
 
 namespace Store.Ecommerce;
 
@@ -51,7 +52,7 @@ public class EcommerceDomainModule : AbpModule
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
         var configuration = context.Services.GetConfiguration();
-        ConfigureAzureStorageAccountOptions(context, configuration);
+        ConfigureOptions(context, configuration);
         ConfigureAbpBlobStoringOptions(configuration);
 
 #if DEBUG
@@ -76,7 +77,7 @@ public class EcommerceDomainModule : AbpModule
     }
 
 
-    private void ConfigureAzureStorageAccountOptions(ServiceConfigurationContext context, IConfiguration configuration)
+    private void ConfigureOptions(ServiceConfigurationContext context, IConfiguration configuration)
     {
         Configure<AzureStorageAccountOptions>(options =>
         {
@@ -85,6 +86,13 @@ public class EcommerceDomainModule : AbpModule
 
             options.ConnectionString = azureStorageConnectionString;
             options.AccountUrl = azureStorageAccountUrl;
+        });
+
+        Configure<ImagekitioOptions>(options =>
+        {
+            options.PublicKey = configuration["ImageKit:PublicKey"];
+            options.PrivateKey = configuration["ImageKit:PrivateKey"];
+            options.UrlEndpoint = configuration["ImageKit:UrlEndpoint"];
         });
     }
 }

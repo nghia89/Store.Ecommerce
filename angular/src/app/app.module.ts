@@ -34,9 +34,8 @@ import { ImagekitioAngularModule } from 'imagekitio-angular';
       registerLocaleFn: registerLocale(),
     }),
     ImagekitioAngularModule.forRoot({
-      publicKey: "public_OynjbKQaLjIk1GdtAZ5kAacjHGE=",
-      urlEndpoint: "https://ik.imagekit.io/estore",
-      authenticationEndpoint: "private_5nuYxzoES0+WUfEZM+f6Bmb4oGM="
+      publicKey: environment.imagekiti.publicKey,
+      urlEndpoint: environment.imagekiti.urlEndpoint,
     }),
     AppLayoutModule,
 

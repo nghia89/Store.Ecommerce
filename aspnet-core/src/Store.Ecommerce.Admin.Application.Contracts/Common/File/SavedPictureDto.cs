@@ -2,6 +2,7 @@ namespace Store.Ecommerce
 {
     public class SavedPictureDto
     {
-        public string StorageFileName { get; set; }
+        public string Id { get; set; }
+        public string Path { get; set; }
     }
 }

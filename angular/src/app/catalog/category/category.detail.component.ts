@@ -6,7 +6,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UtilityService } from '@share/services/utility.service';
 import { Subject, takeUntil } from 'rxjs';
 import { NotificationService } from '@share/services/notification.service';
-import { UploadEvent } from '@share/models/upload-event.dto';
+import { FileModel } from '@share/models/upload-event.dto';
 @Component({
   selector: 'app-category',
   templateUrl: './category.detail.component.html'
@@ -21,7 +21,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
   blockedPanel: boolean = false;
   btnDisabled: boolean = true;
   isHiddenDelete: boolean = false;
-  selectedEntity = { name: "", parentId: null, sku: "", metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "", isActive: false, isFeatured: false } as ProductCategoryDto;
+  files: FileModel[] = []
+  selectedEntity = { name: "", parentId: null, metaDescription: "", metaTitle: "", sortOrder: 0, code: "", slug: "", coverPicture: "", isActive: false, isFeatured: false } as ProductCategoryDto;
 
   constructor(
     private config: DynamicDialogConfig,
@@ -60,8 +61,12 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     this.selectedNodes = value.node
   }
 
-  public OnFileSelect = (files) => {
-
+  public OnFileSelect = (files: FileModel[]) => {
+    if (files)
+      this.form.patchValue({
+        coverPicture: files[0]?.path || "",
+        coverPictureId: files[0]?.id || ""
+      })
   }
 
   loadFormDetail(id) {
@@ -75,6 +80,8 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
           this.buildForm();
           this.selectedNodes = rsp.parent
           this.toggleBlockUI(false);
+          if (rsp.coverPicture)
+            this.files = [{ id: rsp.coverPictureId, fileName: rsp.coverPicture, path: rsp.coverPicture, postSuccess: true }]
         },
         error: (error) => {
           this.notificationService.showError(error.error.error.message);
@@ -187,14 +194,14 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       code: new FormControl(this.selectedEntity.code),
       name: new FormControl(this.selectedEntity.name, Validators.required),
-      sku: new FormControl(this.selectedEntity.sku || ""),
       sortOrder: new FormControl(this.selectedEntity.sortOrder),
       isActive: new FormControl(this.selectedEntity.isActive),
       isFeatured: new FormControl(this.selectedEntity.isFeatured),
       metaDescription: new FormControl(this.selectedEntity.metaDescription),
       metaTitle: new FormControl(this.selectedEntity.metaTitle),
       slug: new FormControl(this.selectedEntity.slug),
-      coverPicture: new FormControl(this.selectedEntity.coverPicture),
+      coverPicture: new FormControl(this.selectedEntity.coverPicture || ''),
+      coverPictureId: new FormControl(this.selectedEntity.coverPictureId || ''),
       parentId: new FormControl(this.selectedEntity.parentId),
     })
   }

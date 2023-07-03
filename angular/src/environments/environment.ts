@@ -26,7 +26,6 @@ export const environment = {
   },
   imagekiti: {
     publicKey: "public_OynjbKQaLjIk1GdtAZ5kAacjHGE=",
-    urlEndpoint: "https://ik.imagekit.io/estore/",
-    authenticationEndpoint: "private_5nuYxzoES0+WUfEZM+f6Bmb4oGM="
+    urlEndpoint: "https://ik.imagekit.io/estore/"
   }
 } as Environment;

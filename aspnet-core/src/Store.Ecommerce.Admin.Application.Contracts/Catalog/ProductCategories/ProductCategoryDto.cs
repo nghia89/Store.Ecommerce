@@ -10,9 +10,9 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         public string Name { get; set; }
         public string Code { get; set; }
         public string Slug { get; set; }
-        public string Sku { get; set; }
         public int SortOrder { get; set; }
         public string CoverPicture { get; set; }
+        public string CoverPictureId { get; set; }
         public bool IsFeatured { get; set; }
         public bool IsActive { get; set; }
         public string MetaDescription { get; set; }

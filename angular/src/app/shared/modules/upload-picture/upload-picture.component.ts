@@ -1,6 +1,6 @@
 import { uuid } from '@abp/ng.core';
 import { HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { SavePictureDto } from '@proxy';
 import { FileService } from '@proxy/catalog/image-uploader';
 import { FileModel } from '@share/models/upload-event.dto';
@@ -21,7 +21,8 @@ export class UploadPictureComponent {
   @Input() isMultiple?: boolean
   @Input() maxNumberFile?: number = 5
   @Output() onFileSelect = new EventEmitter<FileModel[]>
-  uploadFile = ""
+  @Input() files?: FileModel[]
+
   isProcessing: boolean;
   listFile: FileModel[] = []
   isDisable: boolean = false
@@ -30,7 +31,15 @@ export class UploadPictureComponent {
     private notificationService: NotificationService
   ) { }
   ngOnInit(): void {
+    if (this.files)
+      this.listFile = [...this.files]
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.files?.currentValue) {
+      this.listFile = [...changes.files?.currentValue]
+      this.handleCheckDisableBtn()
+    }
   }
 
   public theCallback() {
@@ -41,7 +50,15 @@ export class UploadPictureComponent {
     var file = this.listFile.find(x => x.id == id);
     this.listFile = this.listFile.filter(x => x.id != id)
     if (file?.postSuccess)
-      await this.fileService.delete(file.path).pipe(takeUntil(this.ngUnsubscribe)).subscribe({})
+      await this.fileService.delete(file.id).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+        next: () => {
+          this.theCallback()
+        }, error: (error) => {
+          this.notificationService.showError("Có lỗi xảy ra.");
+          this.isProcessing = false
+        }
+
+      })
     this.handleCheckDisableBtn()
   }
 
@@ -57,13 +74,11 @@ export class UploadPictureComponent {
           fileName: file.name,
           postSuccess: false
         }
-        this.uploadFile = file.name;
         this.listFile.push(newFile)
         this.handleCheckDisableBtn()
         let fileBase64 = await this.utilService.fileToBase64(file);
         await this.HandleUploadFileServer(newFile.id, fileBase64, newFile.fileName);
         URL.revokeObjectURL(file)
-        this.uploadFile = ""
       }
     }
   }
@@ -78,7 +93,8 @@ export class UploadPictureComponent {
         next: (rsp) => {
           let findFile = this.listFile.find(x => x.id == id);
           if (findFile) {
-            findFile.path = rsp.storageFileName
+            findFile.path = rsp.path
+            findFile.id = rsp.id
             findFile.postSuccess = true
           }
           this.theCallback()

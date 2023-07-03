@@ -3,15 +3,20 @@
     <div class=" flex  justify-content-center">
         <p-button [disabled]="isDisable" icon="pi pi-plus" (click)="!isDisable && fileUpload.click()"
             label="Choose"></p-button>
-        <input class="file-input" [(ngModel)]="uploadFile" type="file" #fileUpload id="uploadFile"
-            (change)="uploadFileEvt($event)" name="uploadFile" multiple="{{isMultiple}}" accept="image/*" />
+        <input class="file-input" type="file" #fileUpload id="uploadFile" (change)="uploadFileEvt($event)"
+            multiple="{{isMultiple}}" accept="image/*" />
     </div>
     <div class="  justify-content-center" *ngIf="listFile">
         <div class="p-3 col flex justify-content-center">
             <div class="card p-2 col-10 p-fileupload-row ng-star-inserted flex align-items-center"
                 *ngFor="let item of listFile">
                 <div class="col-3 ">
-                    <img src="{{item.path}}" width="100" class="ng-star-inserted">
+                    <ik-image path="{{item.path}}" *ngIf="item.postSuccess" [transformation]='[{
+                                    "height": "100",
+                                    "width": "100"
+                            }]'>
+                    </ik-image>
+                    <img src="{{item.path}}" width="100" *ngIf="item.postSuccess==false" class="ng-star-inserted">
                 </div>
                 <div class=" col-7 p-fileupload-filename">{{item.fileName}}</div>
                 <div class="col-2">

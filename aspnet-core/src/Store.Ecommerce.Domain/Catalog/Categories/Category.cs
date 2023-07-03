@@ -19,6 +19,7 @@ namespace Store.Ecommerce.Catalog.Categories
         public string Slug { get; set; }
         public int SortOrder { get; set; }
         public string CoverPicture { get; set; }
+        public string CoverPictureId { get; set; }
         public bool IsFeatured { get; set; }
         public bool IsActive { get; set; }
         public string MetaDescription { get; set; }

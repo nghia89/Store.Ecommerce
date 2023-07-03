@@ -9,11 +9,11 @@ export class FileService {
   apiName = 'Default';
   
 
-  delete = (pathFile: string, config?: Partial<Rest.Config>) =>
+  delete = (imageId: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'DELETE',
       url: '/api/app/file',
-      params: { pathFile },
+      params: { imageId },
     },
     { apiName: this.apiName,...config });
   

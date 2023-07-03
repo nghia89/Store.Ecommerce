@@ -97,10 +97,10 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             var parentId = category.ParentId;
 
             category.Name = input.Name;
-            category.Slug = input.Slug;
             category.Code = input.Code;
             category.Slug = category.Name.Slugify();
             category.CoverPicture = input.CoverPicture;
+            category.CoverPictureId = input.CoverPictureId;
             category.IsActive = input.IsActive;
             category.IsFeatured = input.IsFeatured;
             category.ParentId = input.ParentId;
@@ -108,14 +108,14 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             category.MetaDescription = input.MetaDescription;
 
             await _repository.UpdateAsync(category, true);
-            await UnitOfWorkManager.Current.CompleteAsync();
+            //await UnitOfWorkManager.Current.SaveChangesAsync ();
             if (parentId != input.ParentId)
                 _categoryManager.UpdateTreePath(category);
 
             return ObjectMapper.Map<Category, ProductCategoryDto>(category);
         }
 
-        public async Task<List<ProductCategoryInListDto>> GetListAllAsync(string? Keyword)
+        public async Task<List<ProductCategoryInListDto>> GetListAllAsync(string? Keyword = null)
         {
             var query = await Repository.GetQueryableAsync();
             query = query.WhereIf(!string.IsNullOrWhiteSpace(Keyword), x => x.IsDeleted == false && x.Name.Contains(Keyword));
@@ -123,7 +123,7 @@ namespace Store.Ecommerce.Catalog.ProductCategories
             return ObjectMapper.Map<List<Category>, List<ProductCategoryInListDto>>(data);
         }
 
-        public async Task<List<ProductCategoryTreeDto>> GetListTreeAsync(string? Keyword)
+        public async Task<List<ProductCategoryTreeDto>> GetListTreeAsync(string? Keyword = null)
         {
             var listTree = new List<ProductCategoryTreeDto>();
             var listAll = await this.GetListAllAsync(Keyword);

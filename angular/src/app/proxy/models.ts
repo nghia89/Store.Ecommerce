@@ -10,5 +10,6 @@ export interface SavePictureDto {
 }
 
 export interface SavedPictureDto {
-  storageFileName?: string;
+  id?: string;
+  path?: string;
 }
