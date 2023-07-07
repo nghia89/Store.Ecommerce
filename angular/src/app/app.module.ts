@@ -23,6 +23,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { UtilityService } from '@share/services/utility.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ImagekitioAngularModule } from 'imagekitio-angular';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,7 @@ import { ImagekitioAngularModule } from 'imagekitio-angular';
     ToastModule,
     ConfirmDialogModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, ProductComponent],
   providers: [APP_ROUTE_PROVIDER, MessageService, NotificationService, DialogService, UtilityService, ConfirmationService],
   bootstrap: [AppComponent],
 })

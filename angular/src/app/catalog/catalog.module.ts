@@ -22,10 +22,15 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImagekitioAngularModule } from "imagekitio-angular";
 import { environment } from "src/environments/environment";
+import { ProductComponent } from './product/product.component';
+import { TableModule } from 'primeng/table';
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
-        CategoryComponent
+        CategoryComponent,
+        ProductComponent,
+        ProductDetailComponent
     ],
     imports: [
         FormsModule,
@@ -47,7 +52,8 @@ import { environment } from "src/environments/environment";
         InputTextareaModule,
         TreeSelectModule,
         ConfirmDialogModule,
-        FileUploadModule
+        FileUploadModule,
+        TableModule
     ],
     entryComponents: [CategoryDetailComponent]
 })
