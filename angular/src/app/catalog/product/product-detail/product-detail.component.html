@@ -1,1 +1,49 @@
-<p>product-detail works!</p>
+<div class="grid p-fluid">
+    <div class="col-12 md:col-3">
+        <div class="card">
+            <div (click)="scrollTo('section1')">Thông tin cơ bản
+                <ng-container *ngIf="currentSection==='section1'">O</ng-container>
+            </div>
+            <div (click)="scrollTo('section2')">Thông tin chi tiết
+                <ng-container *ngIf="currentSection==='section2'">O</ng-container>
+            </div>
+            <div (click)="scrollTo('section3')">Thông tin bán hàng
+                <ng-container *ngIf="currentSection==='section3'">O</ng-container>
+            </div>
+            <div (click)="scrollTo('section4')">Thông tin khác
+                <ng-container *ngIf="currentSection==='section4'">O</ng-container>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-12 md:col-9">
+        <form [formGroup]="form" skipValidation>
+            <div class="formgrid grid">
+                <div id="parentDiv" scrollSpy (sectionChange)="onSectionChange($event)">
+                    <div class="card" id="section1">
+                        <h2 style="margin:0">Section 1</h2>
+                    </div>
+                    <div class="card" id="section2">
+                        <h1>Section 2</h1>
+                    </div>
+                    <div class="card" id="section3">
+                        <h1>Section 3</h1>
+
+                    </div>
+                    <div class="card" id="section4">
+                        <h1>Section 4</h1>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
+                <p-button type="button" class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete"
+                    styleClass="p-button-danger" icon="fa fa-trash" iconPos="left" label="Xoá"></p-button>
+                <button type="submit" (click)="saveChange()" [disabled]="!form.valid || btnDisabled " pButton
+                    icon="fa fa-save" iconPos="left" label="Lưu lại"></button>
+            </div>
+        </form>
+    </div>
+</div>

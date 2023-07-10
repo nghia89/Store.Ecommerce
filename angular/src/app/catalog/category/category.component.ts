@@ -12,7 +12,7 @@ import { NotificationService } from '@share/services/notification.service';
   styleUrls: ['./category.component.scss']
 })
 
-export class CategoryComponent implements OnInit, OnDestroy {
+export class CategoryComponent implements OnInit {
   private ngUnsubscribe = new Subject<void>();
   items: MenuItem[];
   isLoading: boolean = true
@@ -21,9 +21,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
   constructor(private dialogService: DialogService,
     private productCategoriesService: ProductCategoriesService,
     private notificationService: NotificationService) { }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
 
   ngOnInit(): void {
     this.items = [{

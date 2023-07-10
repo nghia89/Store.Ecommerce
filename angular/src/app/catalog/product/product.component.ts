@@ -1,5 +1,6 @@
 import { PagedResultDto, PagedResultRequestDto } from '@abp/ng.core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductCategoriesService } from '@proxy/catalog/product-categories';
 import { ProductDto, ProductsService } from '@proxy/catalog/products';
 import { NotificationService } from '@share/services/notification.service';
@@ -12,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit, OnDestroy {
+export class ProductComponent implements OnInit {
   private ngUnsubscribe = new Subject<void>();
 
   products: ProductDto[] = [];
@@ -24,14 +25,12 @@ export class ProductComponent implements OnInit, OnDestroy {
   param: PagedResultRequestDto = { skipCount: 1, maxResultCount: 50 };
 
   constructor(
+    private router: Router,
     private dialogService: DialogService,
     private productService: ProductsService,
     private productCategoriesService: ProductCategoriesService,
     private notificationService: NotificationService) { }
 
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
 
 
   ngOnInit(): void {
@@ -64,6 +63,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   onAddNewOrUpdate(id?: Number) {
-
+    if (id)
+      this.router.navigate(['/catalog/product', { id: id }]);
+    else
+      this.router.navigate(['/catalog/product/new']);
   }
 }

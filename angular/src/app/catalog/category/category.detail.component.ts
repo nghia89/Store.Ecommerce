@@ -13,7 +13,7 @@ import { FileModel } from '@share/models/upload-event.dto';
 })
 
 
-export class CategoryDetailComponent implements OnInit, OnDestroy {
+export class CategoryDetailComponent implements OnInit {
   private ngUnsubscribe = new Subject<void>();
   nodes: any[];
   selectedNodes: any;
@@ -34,8 +34,6 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private confirmationService: ConfirmationService
   ) { this.buildForm(); }
 
-
-  ngOnDestroy(): void { }
 
   validationMessages = {
     name: [{ type: 'required', message: 'Bạn phải nhập tên' }],
