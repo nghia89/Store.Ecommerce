@@ -1,17 +1,39 @@
 <div class="grid p-fluid">
     <div class="col-12 md:col-3">
         <div class="card">
-            <div (click)="scrollTo('section1')">Thông tin cơ bản
-                <ng-container *ngIf="currentSection==='section1'">O</ng-container>
-            </div>
-            <div (click)="scrollTo('section2')">Thông tin chi tiết
-                <ng-container *ngIf="currentSection==='section2'">O</ng-container>
-            </div>
-            <div (click)="scrollTo('section3')">Thông tin bán hàng
-                <ng-container *ngIf="currentSection==='section3'">O</ng-container>
-            </div>
-            <div (click)="scrollTo('section4')">Thông tin khác
-                <ng-container *ngIf="currentSection==='section4'">O</ng-container>
+            <div class="timeline">
+                <div class="tl-content " [ngClass]="{'tl-content-active': currentSection==='section1'}">
+                    <div class="tl-header">
+                        <div class="tl-title" (click)="scrollTo('section1')">
+                            <span class="tl-marker"></span>
+                            Thông tin cơ bản
+                        </div>
+                    </div>
+                </div>
+                <div class="tl-content" [ngClass]="{'tl-content-active': currentSection==='section2'}">
+                    <div class="tl-header">
+                        <div class="tl-title" (click)="scrollTo('section2')">
+                            <span class="tl-marker"></span>
+                            Thông tin chi tiết
+                        </div>
+                    </div>
+                </div>
+                <div class="tl-content" [ngClass]="{'tl-content-active': currentSection==='section3'}">
+                    <div class="tl-header">
+                        <div class="tl-title" (click)="scrollTo('section3')">
+                            <span class="tl-marker"></span>
+                            Thông tin bán hàng
+                        </div>
+                    </div>
+                </div>
+                <div class="tl-content" [ngClass]="{'tl-content-active': currentSection==='section4'}">
+                    <div class="tl-header">
+                        <div class="tl-title" (click)="scrollTo('section4')">
+                            <span class="tl-marker"></span>
+                            Thông tin khác
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -19,31 +41,55 @@
 
     <div class="col-12 md:col-9">
         <form [formGroup]="form" skipValidation>
-            <div class="formgrid grid">
-                <div id="parentDiv" scrollSpy (sectionChange)="onSectionChange($event)">
-                    <div class="card" id="section1">
-                        <h2 style="margin:0">Section 1</h2>
-                    </div>
-                    <div class="card" id="section2">
-                        <h1>Section 2</h1>
-                    </div>
-                    <div class="card" id="section3">
-                        <h1>Section 3</h1>
+            <div id="parentDiv" scrollSpy (sectionChange)="onSectionChange($event)">
+                <div class="pb-2" id="section1">
+                    <p-card header="Thông tin cơ bản" [styleClass]>
+                        <div class="field col-12">
+                            <app-upload-picture [files]="files" label="Hình ảnh sản phẩm" isRequired="true"
+                                isMultiple="true" (onFileSelect)="OnFileSelect($event)"></app-upload-picture>
+                        </div>
 
-                    </div>
-                    <div class="card" id="section4">
-                        <h1>Section 4</h1>
+                        <div class="field col-12">
+                            <label for="name" class="block">Tên sản phẩm <span class="required">*</span></label>
+                            <input id="name" maxlength="250" pInputText type="text" class="w-full"
+                                (input)="selectedEntity.name=getValue($event)" formControlName="name" />
+                            <div class="p-1 p-input-icon-right">{{selectedEntity.name.length}}/250</div>
+                            <app-validation-message [entityForm]="form" fieldName="name"
+                                [validationMessages]="validationMessages"></app-validation-message>
+                        </div>
 
-                    </div>
+                        <div class="field col-12">
+                            <label for="parentId" class="block">Nghành hàng <span class="required">*</span></label>
+                            <p-treeSelect class="md:w-20rem w-full" (onNodeSelect)="onSelectedNodes($event)"
+                                [(ngModel)]="selectedNodes" selectionMode="single" containerStyleClass="w-full"
+                                [options]="nodes" placeholder="Chọn danh mục" [showClear]="true"
+                                formControlName="parentId" [filter]="true" [filterInputAutoFocus]="true"
+                                scrollHeight="250px">
+                            </p-treeSelect>
+                            <app-validation-message [entityForm]="form" fieldName="parentId"
+                                [validationMessages]="validationMessages"></app-validation-message>
+                        </div>
+                    </p-card>
+                </div>
+                <div class="card" id="section2">
+                    <h1>Section 2</h1>
+                </div>
+                <div class="card" id="section3">
+                    <h1>Section 3</h1>
+
+                </div>
+                <div class="card" id="section4">
+                    <h1>Section 4</h1>
+
                 </div>
             </div>
 
-            <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
+            <!-- <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
                 <p-button type="button" class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete"
                     styleClass="p-button-danger" icon="fa fa-trash" iconPos="left" label="Xoá"></p-button>
                 <button type="submit" (click)="saveChange()" [disabled]="!form.valid || btnDisabled " pButton
                     icon="fa fa-save" iconPos="left" label="Lưu lại"></button>
-            </div>
+            </div> -->
         </form>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<label class="block pb-2">{{label || 'Hình ảnh'}}</label>
+<label class="block pb-2">{{label || 'Hình ảnh'}} <span class="required" *ngIf="isRequired">* </span></label>
 <div class="card">
     <div class=" flex  justify-content-center">
         <p-button [disabled]="isDisable" icon="pi pi-plus" (click)="!isDisable && fileUpload.click()"
@@ -7,8 +7,8 @@
             multiple="{{isMultiple}}" accept="image/*" />
     </div>
     <div class="  justify-content-center" *ngIf="listFile">
-        <div class="p-3 col flex justify-content-center">
-            <div class="card p-2 col-10 p-fileupload-row ng-star-inserted flex align-items-center"
+        <div class="p-3 col justify-content-center">
+            <div class="card p-2 col  p-fileupload-row ng-star-inserted flex align-items-center"
                 *ngFor="let item of listFile">
                 <div class="col-3 ">
                     <ik-image path="{{item.path}}" *ngIf="item.postSuccess" [transformation]='[{
