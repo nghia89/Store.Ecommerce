@@ -190,8 +190,7 @@ export class CategoryDetailComponent implements OnInit {
 
   private buildForm() {
     this.form = this.fb.group({
-      code: new FormControl(this.selectedEntity.code),
-      name: new FormControl(this.selectedEntity.name, Validators.required),
+      name: new FormControl(this.selectedEntity.name || "", Validators.required),
       sortOrder: new FormControl(this.selectedEntity.sortOrder),
       isActive: new FormControl(this.selectedEntity.isActive),
       isFeatured: new FormControl(this.selectedEntity.isFeatured),

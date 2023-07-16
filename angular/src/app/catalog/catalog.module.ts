@@ -26,6 +26,7 @@ import { ProductComponent } from './product/product.component';
 import { TableModule } from 'primeng/table';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
+import { CardModule } from 'primeng/card';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -55,7 +56,8 @@ import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
         ConfirmDialogModule,
         FileUploadModule,
         TableModule,
-        CKEditorModule
+        CKEditorModule,
+        CardModule
     ],
     entryComponents: [CategoryDetailComponent]
 })

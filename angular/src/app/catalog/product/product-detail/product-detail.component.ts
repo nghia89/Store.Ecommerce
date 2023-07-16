@@ -46,6 +46,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private productService: ProductsService,
     private productCategoriesService: ProductCategoriesService,
     private notificationService: NotificationService) {
+    this.buildForm();
   }
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');

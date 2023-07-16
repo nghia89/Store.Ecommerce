@@ -19,7 +19,8 @@ export class UploadPictureComponent {
 
   @Input() label?: string
   @Input() isMultiple?: boolean
-  @Input() maxNumberFile?: number = 5
+  @Input() isRequired?: boolean
+  @Input() maxNumberFile?: number = 9
   @Output() onFileSelect = new EventEmitter<FileModel[]>
   @Input() files?: FileModel[]
 
@@ -65,8 +66,8 @@ export class UploadPictureComponent {
   async uploadFileEvt(event) {
     this.isProcessing = true
     if (event && event.target.files) {
-      let file = event.target.files[0];
       if (!this.isMultiple) {
+        let file = event.target.files[0];
         this.listFile.length = 0;
         let newFile = {
           id: uuid().toString(),
@@ -76,11 +77,33 @@ export class UploadPictureComponent {
         }
         this.listFile.push(newFile)
         this.handleCheckDisableBtn()
-        let fileBase64 = await this.utilService.fileToBase64(file);
-        await this.HandleUploadFileServer(newFile.id, fileBase64, newFile.fileName);
+        await this.HandleUploadFile(file, newFile);
         URL.revokeObjectURL(file)
       }
+      else {
+        let files = event.target.files;
+        if (files?.length > 0) {
+          Promise.all([...files].map(async file => {
+            let newFile = {
+              id: uuid().toString(),
+              path: URL.createObjectURL(file),
+              fileName: file.name,
+              postSuccess: false
+            }
+            this.listFile.push(newFile)
+            await this.HandleUploadFile(file, newFile);
+            URL.revokeObjectURL(file)
+          })
+          )
+        }
+      }
     }
+  }
+
+
+  async HandleUploadFile(file, newFile) {
+    let fileBase64 = await this.utilService.fileToBase64(file);
+    await this.HandleUploadFileServer(newFile.id, fileBase64, newFile.fileName);
   }
 
   async HandleUploadFileServer(id, file, fileName) {

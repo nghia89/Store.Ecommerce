@@ -1,0 +1,70 @@
+ 
+.tl-content .tl-header,
+.tl-content .tl-body {
+    padding-left: 25.6px;
+
+    border-left: 3px solid gainsboro;
+}
+
+.tl-body {
+    padding-bottom: 1rem;
+}
+
+.tl-content:last-child .tl-body {
+    border-left: 3px solid transparent;
+}
+
+.tl-header {
+    position: relative;
+    display: grid;
+    cursor: pointer;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.tl-title {
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.tl-time {
+    font-size: 0.7em;
+}
+
+.tl-marker {
+    display: block;
+    position: absolute;
+
+    width: 16px;
+    height: 16px;
+    border-radius: 50% / 50%;
+
+    background: gainsboro;
+
+    left: -1.3rem;
+    top: 50%;
+
+    transform: translate(50%, -50%);
+}
+
+.tl-content-active .tl-marker {
+    padding: 1.6px;
+
+    left: -1.4rem;
+
+    width: 18px;
+    height: 18px;
+
+    border: 2px solid limegreen;
+
+    background-color: limegreen;
+    background-clip: content-box;
+
+    box-shadow: 0 0 15px -2px limegreen;
+}
+
+.tl-content-active .tl-title {
+    font-weight: 700;
+
+    color: green;
+}
