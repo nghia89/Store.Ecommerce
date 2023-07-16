@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ProductCategoriesService } from '@proxy/catalog/product-categories';
 import { CreateUpdateProductDto, ProductDto, ProductsService } from '@proxy/catalog/products';
 import { ProductCondition, ProductType } from '@proxy/enum/products';
@@ -33,6 +34,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     showOnHomePage: false, isFreeShipping: false, isShippingEnabled: false, additionalShippingCharge: 0,
     width: 0, height: 0, length: 0, weight: 0, disableBuyButton: false
   }
+
+  title = 'angular';
+  public Editor = ClassicEditor;
 
   constructor(
     private route: ActivatedRoute,

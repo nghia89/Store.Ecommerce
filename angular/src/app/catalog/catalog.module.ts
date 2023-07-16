@@ -25,6 +25,7 @@ import { environment } from "src/environments/environment";
 import { ProductComponent } from './product/product.component';
 import { TableModule } from 'primeng/table';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -53,7 +54,8 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
         TreeSelectModule,
         ConfirmDialogModule,
         FileUploadModule,
-        TableModule
+        TableModule,
+        CKEditorModule
     ],
     entryComponents: [CategoryDetailComponent]
 })
