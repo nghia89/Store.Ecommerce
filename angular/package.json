@@ -35,6 +35,7 @@
     "@ckeditor/ckeditor5-build-classic": "^38.1.1",
     "@ckeditor/ckeditor5-core": "^38.1.1",
     "@ckeditor/ckeditor5-engine": "^38.1.1",
+    "@ckeditor/ckeditor5-upload": "^38.1.1",
     "@ckeditor/ckeditor5-utils": "^38.1.1",
     "@ckeditor/ckeditor5-watchdog": "^38.1.1",
     "imagekitio-angular": "^2.0.0",

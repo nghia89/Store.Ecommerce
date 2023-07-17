@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ProductCategoriesService } from '@proxy/catalog/product-categories';
 import { CreateUpdateProductDto, ProductDto, ProductsService } from '@proxy/catalog/products';
 import { ProductCondition, ProductType } from '@proxy/enum/products';
 import { FileModel } from '@share/models/upload-event.dto';
 import { NotificationService } from '@share/services/notification.service';
+import { UploadAdapter } from '@share/services/uploadAdapter';
 import { UtilityService } from '@share/services/utility.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
@@ -35,9 +37,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     width: 0, height: 0, length: 0, weight: 0, disableBuyButton: false
   }
 
-  title = 'angular';
-  public Editor = ClassicEditor;
-
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -60,6 +59,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  onChangeContent(e) {
+    console.log('aaa', e)
+  }
+
   loadFormDetail(id) {
     this.toggleBlockUI(true);
     this.productService.get(id).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
@@ -72,7 +75,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.toggleBlockUI(false);
       }
     })
-
   }
 
   private toggleBlockUI(enabled: boolean) {
@@ -154,5 +156,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   validationMessages = {
     name: [{ type: 'required', message: 'Bạn phải nhập tên' }],
     sortOrder: [{ type: 'required', message: 'Bạn phải nhập thứ tự' }],
+    parentId: [{ type: 'required', message: 'Bạn phải nhập thứ tự' }],
   };
 }

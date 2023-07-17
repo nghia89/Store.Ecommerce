@@ -7,9 +7,13 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ImagekitioAngularModule } from "imagekitio-angular";
 import { environment } from "src/environments/environment";
+import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
+import { CSCkeditorComponent } from "./ckeditor/cs-ckeditor.Component";
 
 @NgModule({
-    imports: [CoreModule,
+    imports: [
+        CKEditorModule,
+        CoreModule,
         CommonModule,
         ButtonModule,
         ProgressBarModule,
@@ -17,7 +21,7 @@ import { environment } from "src/environments/environment";
             publicKey: environment.imagekiti.publicKey,
             urlEndpoint: environment.imagekiti.urlEndpoint,
         }),],
-    declarations: [ValidationMessageComponent, UploadPictureComponent],
-    exports: [ValidationMessageComponent, UploadPictureComponent]
+    declarations: [ValidationMessageComponent, UploadPictureComponent, CSCkeditorComponent],
+    exports: [ValidationMessageComponent, UploadPictureComponent, CSCkeditorComponent]
 })
 export class AppSharedModule { }

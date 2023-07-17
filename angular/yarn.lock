@@ -1751,7 +1751,7 @@
     "@ckeditor/ckeditor5-engine" "38.1.1"
     "@ckeditor/ckeditor5-ui" "38.1.1"
 
-"@ckeditor/ckeditor5-upload@38.1.1":
+"@ckeditor/ckeditor5-upload@38.1.1", "@ckeditor/ckeditor5-upload@^38.1.1":
   version "38.1.1"
   resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-upload/-/ckeditor5-upload-38.1.1.tgz#dba131613af5fd4b77166ffd839f58192313469f"
   integrity sha512-c7zau/N4cGJKpNPoRj0QEAQKOiIQzrSK2UCG0JsPtfF9jzTWa5fIJ/6hSHquwjtnhkB7zAL0PKXwcTNpdlyibA==

@@ -56,7 +56,6 @@ import { CardModule } from 'primeng/card';
         ConfirmDialogModule,
         FileUploadModule,
         TableModule,
-        CKEditorModule,
         CardModule
     ],
     entryComponents: [CategoryDetailComponent]

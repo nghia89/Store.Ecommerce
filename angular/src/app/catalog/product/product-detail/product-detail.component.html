@@ -44,12 +44,12 @@
             <div id="parentDiv" scrollSpy (sectionChange)="onSectionChange($event)">
                 <div class="pb-2" id="section1">
                     <p-card header="Thông tin cơ bản" [styleClass]>
-                        <div class="field col-12">
+                        <div class="  col-12">
                             <app-upload-picture [files]="files" label="Hình ảnh sản phẩm" isRequired="true"
                                 isMultiple="true" (onFileSelect)="OnFileSelect($event)"></app-upload-picture>
                         </div>
 
-                        <div class="field col-12">
+                        <div class="  col-12">
                             <label for="name" class="block">Tên sản phẩm <span class="required">*</span></label>
                             <input id="name" maxlength="250" pInputText type="text" class="w-full"
                                 (input)="selectedEntity.name=getValue($event)" formControlName="name" />
@@ -58,16 +58,23 @@
                                 [validationMessages]="validationMessages"></app-validation-message>
                         </div>
 
-                        <div class="field col-12">
-                            <label for="parentId" class="block">Nghành hàng <span class="required">*</span></label>
+                        <div class="  col-12">
+                            <label for="categoryId" class="block">Nghành hàng <span class="required">*</span></label>
                             <p-treeSelect class="md:w-20rem w-full" (onNodeSelect)="onSelectedNodes($event)"
                                 [(ngModel)]="selectedNodes" selectionMode="single" containerStyleClass="w-full"
                                 [options]="nodes" placeholder="Chọn danh mục" [showClear]="true"
-                                formControlName="parentId" [filter]="true" [filterInputAutoFocus]="true"
+                                formControlName="categoryId" [filter]="true" [filterInputAutoFocus]="true"
                                 scrollHeight="250px">
                             </p-treeSelect>
-                            <app-validation-message [entityForm]="form" fieldName="parentId"
+                            <app-validation-message [entityForm]="form" fieldName="categoryId"
                                 [validationMessages]="validationMessages"></app-validation-message>
+                        </div>
+
+                        <div class="  col-12">
+                            <label for="name" class="block">Mô tả sản phẩm </label>
+                            <ckeditor-component content="<b>aasdasd</b>" (change)="onChangeContent($event)">
+                            </ckeditor-component>
+
                         </div>
                     </p-card>
                 </div>
