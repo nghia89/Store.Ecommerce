@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { FileService } from "@proxy/catalog/image-uploader";
 import { UploadAdapter } from "@share/services/uploadAdapter";
+import { UtilityService } from "@share/services/utility.service";
 import { Subject } from "rxjs";
 
 @Component({
@@ -19,7 +21,7 @@ export class CSCkeditorComponent {
     @Output() onChange = new EventEmitter<any>
     @Input() content: string
 
-    constructor() { }
+    constructor(private utilService: UtilityService, private fileService: FileService) { }
     ngOnInit(): void {
 
     }
@@ -31,7 +33,7 @@ export class CSCkeditorComponent {
     }
     onReady(editor: ClassicEditor): void {
         editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-            return new UploadAdapter(loader);
+            return new UploadAdapter(loader, this.utilService, this.fileService);
         };
     }
 

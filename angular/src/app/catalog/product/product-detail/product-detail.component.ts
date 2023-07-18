@@ -8,7 +8,6 @@ import { CreateUpdateProductDto, ProductDto, ProductsService } from '@proxy/cata
 import { ProductCondition, ProductType } from '@proxy/enum/products';
 import { FileModel } from '@share/models/upload-event.dto';
 import { NotificationService } from '@share/services/notification.service';
-import { UploadAdapter } from '@share/services/uploadAdapter';
 import { UtilityService } from '@share/services/utility.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, takeUntil } from 'rxjs';
