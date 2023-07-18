@@ -1,15 +1,35 @@
+import { Injectable } from '@angular/core';
+import { FileService } from '@proxy/catalog/image-uploader';
+import { UtilityService } from '@share/services/utility.service';
+import { Subject, takeUntil } from 'rxjs';
+
+@Injectable()
 export class UploadAdapter {
-    loader: any;
-    xhr: any;
-    constructor(loader) {
+    private ngUnsubscribe = new Subject<void>();
+    constructor(loader, private utilService: UtilityService, private fileService: FileService) {
         this.loader = loader;
     }
+    loader: any;
+    xhr: any;
+
     upload() {
         return this.loader.file
-            .then(file => new Promise((resolve, reject) => {
-                this._initRequest();
-                this._initListeners(resolve, reject, file);
-                this._sendRequest(file);
+            .then(file => new Promise(async (resolve, reject) => {
+                // this._initRequest();
+                // this._initListeners(resolve, reject, file);
+                let fileBase64 = await this.utilService.fileToBase64(file);
+                await this.fileService.savePictureByInput({ content: fileBase64 }).pipe(takeUntil(this.ngUnsubscribe))
+                    .subscribe({
+                        next: (rsp) => {
+                            resolve({
+                                default: rsp.path
+                            });
+                        },
+                        error: (error) => {
+                            const genericErrorText = `Couldn't upload file: ${file.name}.`;
+                            console.log(genericErrorText)
+                        }
+                    })
             }));
     }
     abort() {
@@ -47,9 +67,10 @@ export class UploadAdapter {
             });
         }
     }
-    _sendRequest(file) {
+    async _sendRequest(file) {
         const data = new FormData();
-        data.append('upload', file);
+        let fileBase64 = await this.utilService.fileToBase64(file);
+        data.append('content', fileBase64);
         this.xhr.send(data);
     }
 }
