@@ -27,12 +27,16 @@ import { TableModule } from 'primeng/table';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import { CardModule } from 'primeng/card';
+import { SpecificationAttributeComponent } from './specification-attribute/specification-attribute.component';
+import { SpecificationAttributeDetailComponent } from './specification-attribute/specification-attribute-detail/specification-attribute-detail.component';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
         CategoryComponent,
         ProductComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        SpecificationAttributeComponent,
+        SpecificationAttributeDetailComponent
     ],
     imports: [
         FormsModule,

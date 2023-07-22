@@ -4,6 +4,8 @@ import { CategoryComponent } from "./category/category.component";
 import { PermissionGuard } from "@abp/ng.core";
 import { ProductComponent } from "./product/product.component";
 import { ProductDetailComponent } from "./product/product-detail/product-detail.component";
+import { SpecificationAttributeComponent } from "./specification-attribute/specification-attribute.component";
+import { SpecificationAttributeDetailComponent } from "./specification-attribute/specification-attribute-detail/specification-attribute-detail.component";
 
 
 const routes: Routes = [
@@ -26,7 +28,22 @@ const routes: Routes = [
         path: 'product/new',
         component: ProductDetailComponent,
         canActivate: [PermissionGuard],
-    }
+    },
+    {
+        path: 'specification-attribute',
+        component: SpecificationAttributeComponent,
+        canActivate: [PermissionGuard],
+    },
+    {
+        path: 'specification-attribute/:id/edit',
+        component: SpecificationAttributeDetailComponent,
+        canActivate: [PermissionGuard],
+    },
+    {
+        path: 'specification-attribute/new',
+        component: SpecificationAttributeDetailComponent,
+        canActivate: [PermissionGuard],
+    },
 ]
 
 @NgModule({
