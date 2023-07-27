@@ -1,7 +1,7 @@
 <div class="grid p-fluid">
-    <div class="col-12">
+    <div class="col-4">
         <form [formGroup]="form" skipValidation>
-            <p-card header="Thêm một thuộc tính đặc điểm kỹ thuật mới" [styleClass]>
+            <p-card header="Thuộc tính đặc điểm kỹ thuật" [styleClass]>
                 <div class="field  col-12">
                     <label for="name" class="block">Tên<span class="required">*</span></label>
                     <input id="name" maxlength="250" pInputText type="text" class="w-full"
@@ -10,14 +10,32 @@
                     <app-validation-message [entityForm]="form" fieldName="name"
                         [validationMessages]="validationMessages"></app-validation-message>
                 </div>
-            </p-card>
+                <div class="field col-12">
+                    <label for="sortOrder" class="block">Thứ tự <span class="required">*</span></label>
+                    <p-inputNumber formControlName="sortOrder"></p-inputNumber>
+                    <app-validation-message [entityForm]="form" fieldName="sortOrder"
+                        [validationMessages]="validationMessages"></app-validation-message>
+                </div>
+                <div class="field col-12">
+                    <label for="description" class="block">Mô tả meta</label>
+                    <textarea id="description" maxlength="250" (input)="selectedEntity.description=getValue($event)"
+                        pInputTextarea class="w-full" formControlName="description"></textarea>
+                    <div class="p-1 p-input-icon-right">{{selectedEntity.description.length}}/250</div>
+                </div>
 
-            <!-- <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
-                <p-button type="button" class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete"
-                    styleClass="p-button-danger" icon="fa fa-trash" iconPos="left" label="Xoá"></p-button>
-                <button type="submit" (click)="saveChange()" [disabled]="!form.valid || btnDisabled " pButton
-                    icon="fa fa-save" iconPos="left" label="Lưu lại"></button>
-            </div> -->
+                <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
+                    <!-- <p-button type="button" class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete"
+                        styleClass="p-button-danger" icon="fa fa-trash" iconPos="left" label="Xoá"></p-button> -->
+                    <button type="submit" (click)="saveChange()" [disabled]="!form.valid || btnDisabled " pButton
+                        icon="fa fa-save" iconPos="left" label="Lưu lại"></button>
+                </div>
+            </p-card>
         </form>
+    </div>
+    <div class="col-8 ">
+        <p-card header="Tuỳ chọn thuộc tính đặc điểm kỹ thuật" [styleClass]>
+            <button pButton (click)="onAddNewOrUpdateOption()" iconPos="left" label="Thêm thuộc tính"></button>
+
+        </p-card>
     </div>
 </div>

@@ -29,6 +29,7 @@ import { CKEditorModule } from "@ckeditor/ckeditor5-angular";
 import { CardModule } from 'primeng/card';
 import { SpecificationAttributeComponent } from './specification-attribute/specification-attribute.component';
 import { SpecificationAttributeDetailComponent } from './specification-attribute/specification-attribute-detail/specification-attribute-detail.component';
+import { SpecificationAttributeOptionComponent } from "./specification-attribute/specification-attribute-detail/specification-attribute-option.component";
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -36,7 +37,8 @@ import { SpecificationAttributeDetailComponent } from './specification-attribute
         ProductComponent,
         ProductDetailComponent,
         SpecificationAttributeComponent,
-        SpecificationAttributeDetailComponent
+        SpecificationAttributeDetailComponent,
+        SpecificationAttributeOptionComponent
     ],
     imports: [
         FormsModule,
@@ -62,7 +64,7 @@ import { SpecificationAttributeDetailComponent } from './specification-attribute
         TableModule,
         CardModule
     ],
-    entryComponents: [CategoryDetailComponent]
+    entryComponents: [CategoryDetailComponent, SpecificationAttributeOptionComponent]
 })
 
 export class CatalogModule { } 
