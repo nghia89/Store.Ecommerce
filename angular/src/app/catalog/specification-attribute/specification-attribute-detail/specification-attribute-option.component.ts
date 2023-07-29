@@ -4,13 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 import { SpecificationAttributeOptionDto, SpecificationAttributeOptionService } from '@proxy/catalog/attributes';
 import { NotificationService } from '@share/services/notification.service';
 import { UtilityService } from '@share/services/utility.service';
-import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-specification-attribute-option',
   templateUrl: './specification-attribute-option.component.html'
 })
 export class SpecificationAttributeOptionComponent implements OnInit {
+  private ngUnsubscribe = new Subject<void>();
+
   public form: FormGroup
   blockedPanel: boolean = false;
   btnDisabled: boolean = true;
@@ -23,7 +26,7 @@ export class SpecificationAttributeOptionComponent implements OnInit {
     private fb: FormBuilder,
     private config: DynamicDialogConfig,
     private utilService: UtilityService,
-    private dialogService: DialogService,
+    private ref: DynamicDialogRef,
     private specificationAttributeOptionService: SpecificationAttributeOptionService,
     private notificationService: NotificationService) {
     this.buildForm();
@@ -33,20 +36,60 @@ export class SpecificationAttributeOptionComponent implements OnInit {
     this.buildForm();
 
     if (this.utilService.isEmpty(this.config.data?.id) == false) {
-
+      this.selectedEntity.id = this.config.data?.id
     }
   }
 
 
-  saveChange() {
-
+  saveChange(id?: string) {
+    this.toggleBlockUI(true)
+    if (this.utilService.isEmpty(this.config.data?.id)) {
+      this.specificationAttributeOptionService.create(this.form.value)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe({
+          next: (rsp) => {
+            this.toggleBlockUI(false);
+            this.ref.close(this.form.value)
+          },
+          error: (error) => {
+            this.notificationService.showError(error.error.error.message);
+            this.toggleBlockUI(false);
+          }
+        }
+        )
+    } else {
+      this.specificationAttributeOptionService.update(this.config.data?.id, this.form.value)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe({
+          next: (rsp) => {
+            this.toggleBlockUI(false);
+            this.ref.close(this.form.value)
+          },
+          error: (error) => {
+            this.notificationService.showError(error.error.error.message);
+            this.toggleBlockUI(false);
+          }
+        }
+        )
+    }
   }
 
+  private toggleBlockUI(enabled: boolean) {
+    if (enabled == true) {
+      this.blockedPanel = true;
+      this.btnDisabled = true;
+    } else {
+      this.blockedPanel = false;
+      this.btnDisabled = false;
+    }
+  }
 
   private buildForm() {
     this.form = this.fb.group(
       {
         name: new FormControl(this.selectedEntity.name || "", Validators.required),
+        alias: new FormControl(this.selectedEntity.alias || ""),
+        sortOrder: new FormControl(this.selectedEntity.sortOrder || 0)
       }
     )
   }

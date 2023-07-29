@@ -23,18 +23,24 @@
                     <div class="p-1 p-input-icon-right">{{selectedEntity.description.length}}/250</div>
                 </div>
 
+                <div class="field col-12">
+                    <label for="showOnProductPage" class="block">Hiển thị</label>
+                    <p-inputSwitch formControlName="showOnProductPage"></p-inputSwitch>
+                </div>
+
                 <div class="p-dialog-footer ng-tns-c100-12 ng-star-inserted">
                     <!-- <p-button type="button" class="mx-5" (click)="confirmDelete()" *ngIf="this.isHiddenDelete"
                         styleClass="p-button-danger" icon="fa fa-trash" iconPos="left" label="Xoá"></p-button> -->
-                    <button type="submit" (click)="saveChange()" [disabled]="!form.valid || btnDisabled " pButton
-                        icon="fa fa-save" iconPos="left" label="Lưu lại"></button>
+                    <button type="submit" (click)="saveChange()" [disabled]="!form.valid " pButton icon="fa fa-save"
+                        iconPos="left" label="Lưu lại"></button>
                 </div>
             </p-card>
         </form>
     </div>
     <div class="col-8 ">
         <p-card header="Tuỳ chọn thuộc tính đặc điểm kỹ thuật" [styleClass]>
-            <button pButton (click)="onAddNewOrUpdateOption()" iconPos="left" label="Thêm thuộc tính"></button>
+            <button pButton (click)="onAddNewOrUpdateOption()" disabled="selectedEntity?.id" iconPos="left"
+                label="Thêm thuộc tính"></button>
 
         </p-card>
     </div>

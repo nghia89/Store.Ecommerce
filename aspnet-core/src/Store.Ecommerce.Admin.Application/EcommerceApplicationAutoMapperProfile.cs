@@ -32,5 +32,6 @@ public class EcommerceApplicationAutoMapperProfile : Profile
         CreateMap<Attribute, AttributeDto>().ReverseMap();
         CreateMap<Attribute, CreateUpdateAttributeDto>().ReverseMap();
         CreateMap<CreateUpdateSpecificationAttributeDto, SpecificationAttribute>().ReverseMap();
+        CreateMap<CreateUpdateSpecificationAttributeOptionDto, SpecificationAttributeOption>().ReverseMap();
     }
 }

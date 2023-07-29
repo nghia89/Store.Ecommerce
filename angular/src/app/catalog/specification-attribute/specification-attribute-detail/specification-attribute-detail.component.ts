@@ -43,6 +43,20 @@ export class SpecificationAttributeDetailComponent implements OnInit {
         .subscribe({
           next: (rsp) => {
             this.toggleBlockUI(false);
+            this.mapEntity(rsp)
+          },
+          error: (error) => {
+            this.notificationService.showError(error.error.error.message);
+            this.toggleBlockUI(false);
+          }
+        })
+    } else {
+      this.specificationAttributeService.update(this.selectedEntity.id, this.form.value)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe({
+          next: (rsp) => {
+            this.toggleBlockUI(false);
+            this.mapEntity(rsp)
           },
           error: (error) => {
             this.notificationService.showError(error.error.error.message);
@@ -51,14 +65,26 @@ export class SpecificationAttributeDetailComponent implements OnInit {
         })
     }
   }
+  mapEntity(rsp) {
+    this.selectedEntity = {
+      id: rsp.id,
+      name: rsp.name,
+      sortOrder: rsp.sortOrder,
+      description: rsp.description,
+      showOnProductPage: rsp.showOnProductPage
+    }
+  }
 
 
   private buildForm() {
     this.form = this.fb.group(
       {
+        // id: new FormControl(this.selectedEntity.id || ""),
         name: new FormControl(this.selectedEntity.name || "", Validators.required),
         sortOrder: new FormControl(this.selectedEntity.sortOrder || 0),
-        description: new FormControl(this.selectedEntity.description)
+        description: new FormControl(this.selectedEntity.description),
+        alias: new FormControl(this.selectedEntity?.alias || ""),
+        showOnProductPage: new FormControl(this.selectedEntity?.showOnProductPage || true),
       }
     )
   }
@@ -67,10 +93,8 @@ export class SpecificationAttributeDetailComponent implements OnInit {
       this.blockedPanel = true;
       this.btnDisabled = true;
     } else {
-      setTimeout(() => {
-        this.blockedPanel = false;
-        this.btnDisabled = false;
-      }, 300);
+      this.blockedPanel = false;
+      this.btnDisabled = false;
     }
   }
 
