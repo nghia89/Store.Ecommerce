@@ -19,6 +19,7 @@ export class SpecificationAttributeDetailComponent implements OnInit {
   blockedPanel: boolean = false;
   btnDisabled: boolean = true;
   isHiddenDelete: boolean = false;
+  isDisableAddOption: boolean = true;
   selectedEntity: SpecificationAttributeDto = {
     id: null, name: "", sortOrder: 0, alias: '', description: '', showOnProductPage: true
   }
@@ -33,7 +34,8 @@ export class SpecificationAttributeDetailComponent implements OnInit {
     this.buildForm();
   }
   ngOnInit(): void {
-
+    if (!this.utilService.isEmpty(this.selectedEntity.id))
+      this.isDisableAddOption = false
   }
 
   saveChange() {
@@ -73,6 +75,7 @@ export class SpecificationAttributeDetailComponent implements OnInit {
       description: rsp.description,
       showOnProductPage: rsp.showOnProductPage
     }
+    this.isDisableAddOption = false
   }
 
 
@@ -101,7 +104,8 @@ export class SpecificationAttributeDetailComponent implements OnInit {
   onAddNewOrUpdateOption(id?: number) {
     var ref = this.dialogService.open(SpecificationAttributeOptionComponent, {
       data: {
-        id: id
+        id: id,
+        specificationAttributeId: this.selectedEntity.id
       },
       header: id ? 'Cập nhật' : 'Thêm mới',
       width: '60%',

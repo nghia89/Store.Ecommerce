@@ -43,27 +43,29 @@ export class SpecificationAttributeOptionComponent implements OnInit {
 
   saveChange(id?: string) {
     this.toggleBlockUI(true)
+    let body = { ...this.form.value };
     if (this.utilService.isEmpty(this.config.data?.id)) {
-      this.specificationAttributeOptionService.create(this.form.value)
+      body.specificationAttributeId = this.config.data.specificationAttributeId;
+      this.specificationAttributeOptionService.create(body)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe({
           next: (rsp) => {
             this.toggleBlockUI(false);
-            this.ref.close(this.form.value)
+            this.ref.close(rsp)
           },
           error: (error) => {
             this.notificationService.showError(error.error.error.message);
             this.toggleBlockUI(false);
           }
-        }
-        )
+        })
     } else {
-      this.specificationAttributeOptionService.update(this.config.data?.id, this.form.value)
+      body.specificationAttributeId = this.config.data.specificationAttributeId;
+      this.specificationAttributeOptionService.update(this.config.data?.id, body)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe({
           next: (rsp) => {
             this.toggleBlockUI(false);
-            this.ref.close(this.form.value)
+            this.ref.close(rsp)
           },
           error: (error) => {
             this.notificationService.showError(error.error.error.message);
@@ -89,6 +91,7 @@ export class SpecificationAttributeOptionComponent implements OnInit {
       {
         name: new FormControl(this.selectedEntity.name || "", Validators.required),
         alias: new FormControl(this.selectedEntity.alias || ""),
+        color: new FormControl(this.selectedEntity.color || ""),
         sortOrder: new FormControl(this.selectedEntity.sortOrder || 0)
       }
     )

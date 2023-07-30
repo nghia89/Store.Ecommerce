@@ -39,7 +39,7 @@
     </div>
     <div class="col-8 ">
         <p-card header="Tuỳ chọn thuộc tính đặc điểm kỹ thuật" [styleClass]>
-            <button pButton (click)="onAddNewOrUpdateOption()" disabled="selectedEntity?.id" iconPos="left"
+            <button pButton (click)="onAddNewOrUpdateOption()" [disabled]="isDisableAddOption" iconPos="left"
                 label="Thêm thuộc tính"></button>
 
         </p-card>
