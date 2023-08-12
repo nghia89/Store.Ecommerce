@@ -33,10 +33,11 @@ export class SpecificationAttributeOptionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.buildForm();
-
     if (this.utilService.isEmpty(this.config.data?.id) == false) {
-      this.selectedEntity.id = this.config.data?.id
+      this.selectedEntity = this.config.data?.item;
+      this.buildForm();
+    } else {
+      this.buildForm();
     }
   }
 

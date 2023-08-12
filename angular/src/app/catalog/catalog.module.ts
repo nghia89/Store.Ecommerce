@@ -30,6 +30,7 @@ import { CardModule } from 'primeng/card';
 import { SpecificationAttributeComponent } from './specification-attribute/specification-attribute.component';
 import { SpecificationAttributeDetailComponent } from './specification-attribute/specification-attribute-detail/specification-attribute-detail.component';
 import { SpecificationAttributeOptionComponent } from "./specification-attribute/specification-attribute-detail/specification-attribute-option.component";
+import { TagModule } from 'primeng/tag';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -62,7 +63,8 @@ import { SpecificationAttributeOptionComponent } from "./specification-attribute
         ConfirmDialogModule,
         FileUploadModule,
         TableModule,
-        CardModule
+        CardModule,
+        TagModule
     ],
     entryComponents: [CategoryDetailComponent, SpecificationAttributeOptionComponent]
 })

@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class SpecificationAttributeOptionService {
   apiName = 'Default';
-  
+
 
   create = (input: CreateUpdateSpecificationAttributeOptionDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, SpecificationAttributeOptionDto>({
@@ -16,24 +16,24 @@ export class SpecificationAttributeOptionService {
       url: '/api/app/specification-attribute-option',
       body: input,
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   delete = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'DELETE',
       url: `/api/app/specification-attribute-option/${id}`,
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   get = (id: number, config?: Partial<Rest.Config>) =>
     this.restService.request<any, SpecificationAttributeOptionDto>({
       method: 'GET',
       url: `/api/app/specification-attribute-option/${id}`,
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   getList = (input: PagedResultRequestDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<SpecificationAttributeOptionDto>>({
@@ -41,17 +41,17 @@ export class SpecificationAttributeOptionService {
       url: '/api/app/specification-attribute-option',
       params: { skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
 
-  getListFilter = (specificationAttributeId: number, keyword: string, config?: Partial<Rest.Config>) =>
+
+  getListFilter = (specificationAttributeId: number, keyword?: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, SpecificationAttributeOptionDto[]>({
       method: 'GET',
       url: `/api/app/specification-attribute-option/filter/${specificationAttributeId}`,
       params: { keyword },
     },
-    { apiName: this.apiName,...config });
-  
+      { apiName: this.apiName, ...config });
+
 
   update = (id: number, input: CreateUpdateSpecificationAttributeOptionDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, SpecificationAttributeOptionDto>({
@@ -59,7 +59,7 @@ export class SpecificationAttributeOptionService {
       url: `/api/app/specification-attribute-option/${id}`,
       body: input,
     },
-    { apiName: this.apiName,...config });
+      { apiName: this.apiName, ...config });
 
-  constructor(private restService: RestService) {}
+  constructor(private restService: RestService) { }
 }

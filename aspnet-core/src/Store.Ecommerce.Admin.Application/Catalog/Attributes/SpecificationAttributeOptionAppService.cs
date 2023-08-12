@@ -24,7 +24,7 @@ namespace Store.Ecommerce.Catalog.Attributes
         {
         }
 
-        public async Task<List<SpecificationAttributeOptionDto>> GetListFilterAsync(int specificationAttributeId, string keyword)
+        public async Task<List<SpecificationAttributeOptionDto>> GetListFilterAsync(int specificationAttributeId, string? keyword)
         {
             var query = await Repository.GetQueryableAsync();
             query = query.WhereIf(!string.IsNullOrWhiteSpace(keyword), x => x.Name.Contains(keyword));

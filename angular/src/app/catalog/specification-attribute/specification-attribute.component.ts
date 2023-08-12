@@ -1,9 +1,11 @@
 import { PagedResultRequestDto } from '@abp/ng.core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SpecificationAttributeDto, SpecificationAttributeService } from '@proxy/catalog/attributes';
 import { NotificationService } from '@share/services/notification.service';
 import { MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-specification-attribute',
@@ -11,43 +13,59 @@ import { DialogService } from 'primeng/dynamicdialog';
   styleUrls: ['./specification-attribute.component.scss']
 })
 export class SpecificationAttributeComponent implements OnInit {
+  private ngUnsubscribe = new Subject<void>();
 
-  data: [];
+  data: SpecificationAttributeDto[];
   items: MenuItem[];
   totalCount: number = 0
   isLoading: boolean = true
-  param: PagedResultRequestDto = { skipCount: 1, maxResultCount: 50 };
+  param: PagedResultRequestDto = { skipCount: 0, maxResultCount: 50 };
 
   constructor(
     private router: Router,
     private dialogService: DialogService,
+    private specificationAttributeService: SpecificationAttributeService,
     private notificationService: NotificationService) { }
 
 
 
   ngOnInit(): void {
     this.items = [{
-      label: 'Manage Products'
+      label: 'Danh sách thuộc tính'
     }];
     this.getData()
   }
 
   getData() {
-    // this.productService.getList(this.param).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
-    //   next: (rsp) => {
-    //     this.products = rsp.items
-    //     this.totalCount = rsp.totalCount
-    //     this.toggleBlockUI(false)
-    //   },
-    //   error: (error) => {
-    //     this.notificationService.showError(error.error.error.message);
-    //     this.toggleBlockUI(false);
-    //   }
-    // })
+    this.specificationAttributeService.getList(this.param).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (rsp) => {
+        this.data = rsp.items
+        this.totalCount = rsp.totalCount
+        this.toggleBlockUI(false)
+      },
+      error: (error) => {
+        this.notificationService.showError(error.error.error.message);
+        this.toggleBlockUI(false);
+      }
+    })
+  }
+
+  getSeverity(status: boolean) {
+    if (status == true)
+      return 'success'
+    else
+      return 'danger'
+  }
+  getValueStatus(status: boolean) {
+    if (status == true)
+      return 'Hiển thị'
+    else
+      return 'Ẩn'
+
   }
   onAddNewOrUpdate(id?: number) {
     if (id)
-      this.router.navigate(['/catalog/specification-attribute', { id: id }]);
+      this.router.navigate([`/catalog/specification-attribute/${id}/edit`]);
     else
       this.router.navigate(['/catalog/specification-attribute/new']);
   }

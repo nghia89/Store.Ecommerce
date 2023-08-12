@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { SpecificationAttributeDto, SpecificationAttributeService } from '@proxy/catalog/attributes';
+import { SpecificationAttributeDto, SpecificationAttributeOptionDto, SpecificationAttributeOptionService, SpecificationAttributeService } from '@proxy/catalog/attributes';
 import { NotificationService } from '@share/services/notification.service';
 import { UtilityService } from '@share/services/utility.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SpecificationAttributeOptionComponent } from './specification-attribute-option.component';
 import { Subject, takeUntil } from 'rxjs';
+import { PagedResultRequestDto } from '@abp/ng.core';
 
 @Component({
   selector: 'app-specification-attribute-detail',
@@ -17,25 +18,66 @@ export class SpecificationAttributeDetailComponent implements OnInit {
 
   public form: FormGroup
   blockedPanel: boolean = false;
+  isLoadingOption: boolean = true;
   btnDisabled: boolean = true;
   isHiddenDelete: boolean = false;
   isDisableAddOption: boolean = true;
   selectedEntity: SpecificationAttributeDto = {
     id: null, name: "", sortOrder: 0, alias: '', description: '', showOnProductPage: true
   }
-
+  param: PagedResultRequestDto = { skipCount: 0, maxResultCount: 50 };
+  dataAttributeOption: SpecificationAttributeOptionDto[];
+  totalCount: number
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private utilService: UtilityService,
     private dialogService: DialogService,
     private specificationAttributeService: SpecificationAttributeService,
+    private specificationAttributeOptionService: SpecificationAttributeOptionService,
     private notificationService: NotificationService) {
     this.buildForm();
   }
   ngOnInit(): void {
     if (!this.utilService.isEmpty(this.selectedEntity.id))
       this.isDisableAddOption = false
+    let id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.loadFormDetail(id);
+      this.getDataAttributeOption(id)
+    } else {
+      this.isLoadingOption = false;
+    }
+  }
+
+  loadFormDetail(id: any) {
+    this.specificationAttributeService.get(id).pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (rsp) => {
+          this.toggleBlockUI(false);
+          this.mapEntity(rsp)
+        },
+        error: (error) => {
+          this.notificationService.showError(error.error.error.message);
+          this.toggleBlockUI(false);
+        }
+      })
+  }
+
+  getDataAttributeOption(attributeId) {
+    if (attributeId) {
+      this.specificationAttributeOptionService.getList(this.param).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+        next: (rsp) => {
+          this.dataAttributeOption = rsp.items
+          this.totalCount = rsp.totalCount
+          this.isLoadingOption = false
+        },
+        error: (error) => {
+          this.notificationService.showError(error.error.error.message);
+          this.isLoadingOption = false
+        }
+      })
+    }
   }
 
   saveChange() {
@@ -76,6 +118,7 @@ export class SpecificationAttributeDetailComponent implements OnInit {
       showOnProductPage: rsp.showOnProductPage
     }
     this.isDisableAddOption = false
+    this.buildForm();
   }
 
 
@@ -87,7 +130,7 @@ export class SpecificationAttributeDetailComponent implements OnInit {
         sortOrder: new FormControl(this.selectedEntity.sortOrder || 0),
         description: new FormControl(this.selectedEntity.description),
         alias: new FormControl(this.selectedEntity?.alias || ""),
-        showOnProductPage: new FormControl(this.selectedEntity?.showOnProductPage || true),
+        showOnProductPage: new FormControl(this.selectedEntity?.showOnProductPage || false),
       }
     )
   }
@@ -101,13 +144,14 @@ export class SpecificationAttributeDetailComponent implements OnInit {
     }
   }
 
-  onAddNewOrUpdateOption(id?: number) {
+  onAddNewOrUpdateOption(item?: SpecificationAttributeOptionDto) {
     var ref = this.dialogService.open(SpecificationAttributeOptionComponent, {
       data: {
-        id: id,
+        id: item?.id,
+        item: item,
         specificationAttributeId: this.selectedEntity.id
       },
-      header: id ? 'Cập nhật' : 'Thêm mới',
+      header: item ? 'Cập nhật' : 'Thêm mới',
       width: '60%',
       modal: true,
       contentStyle: { overflow: 'auto' },
