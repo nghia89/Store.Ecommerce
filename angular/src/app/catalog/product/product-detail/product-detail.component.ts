@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ProductAttributeValueService, SpecificationAttributeDto, SpecificationAttributeOptionDto, SpecificationAttributeOptionService, SpecificationAttributeService } from '@proxy/catalog/attributes';
 import { ProductCategoriesService } from '@proxy/catalog/product-categories';
-import { CreateUpdateProductDto, ProductDto, ProductsService } from '@proxy/catalog/products';
+import { CreateUpdateProductDto, ProductDto, ProductSpecificationAttributeService, ProductsService } from '@proxy/catalog/products';
 import { ProductCondition, ProductType } from '@proxy/enum/products';
 import { FileModel } from '@share/models/upload-event.dto';
 import { NotificationService } from '@share/services/notification.service';
@@ -33,8 +32,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     name: "", sortOrder: 0, published: false, isActive: false, categoryId: null,
     sellPrice: 0, productType: ProductType.Single, productCondition: ProductCondition.New,
     showOnHomePage: false, isFreeShipping: false, isShippingEnabled: false, additionalShippingCharge: 0,
-    width: 0, height: 0, length: 0, weight: 0, disableBuyButton: false
+    width: 0, height: 0, length: 0, weight: 0, disableBuyButton: false, description: ""
   }
+  productId: string = ''
+
+  // Thông tin chi tiết
+  dataSpecificationAttribute: SpecificationAttributeDto[];
+  selectedSpecificationAttribute: SpecificationAttributeDto | undefined;
+  dataSpecificationAttributeOption: SpecificationAttributeOptionDto[]
+  selectedSPAttributeOption: SpecificationAttributeOptionDto | undefined;
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +51,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private productService: ProductsService,
     private productCategoriesService: ProductCategoriesService,
+    private specificationAttributeService: SpecificationAttributeService,
+    private specificationAttributeOptionService: SpecificationAttributeOptionService,
+    private productSpecificationService: ProductSpecificationAttributeService,
     private notificationService: NotificationService) {
     this.buildForm();
   }
@@ -52,6 +63,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getListTree();
+    this.getAllSpecification();
     const id = this.route.snapshot.paramMap.get('id');
     if (this.utilService.isEmpty(id) == false) {
       this.loadFormDetail(id);
@@ -59,7 +71,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   onChangeContent(e) {
-    console.log('aaa', e)
+    this.setValueForm(e, 'description')
+  }
+
+  setValueForm(value: any, fileName: string) {
+    if (fileName) {
+      this.form.patchValue({
+        fileName: value
+      })
+    }
   }
 
   loadFormDetail(id) {
@@ -75,6 +95,30 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  private getAllSpecification() {
+    this.specificationAttributeService.getListAll().pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (rsp) => {
+          this.dataSpecificationAttribute = rsp
+        }
+      })
+  }
+
+  private getAllSpecificationOption(specificationId: number) {
+    this.specificationAttributeOptionService.getListFilter(specificationId, "").pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe({
+        next: (rsp) => {
+          this.dataSpecificationAttributeOption = rsp
+        }
+      })
+  }
+
+  // private addSpecificationToProduct() {
+  //   if (this.selectedSPAttributeOption && this.selectedSpecificationAttribute) {
+  //     this.productSpecificationService.create()
+  //   }
+  // }
 
   private toggleBlockUI(enabled: boolean) {
     if (enabled == true) {
@@ -102,8 +146,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   }
 
-  saveChange() {
+  onchangeSpecification(e) {
+    this.selectedSpecificationAttribute = e.value
+    this.selectedSPAttributeOption = null
+    if (e && e.value)
+      this.getAllSpecificationOption(e.value.id)
+  }
 
+  saveChange() {
+    console.log('this.form.value', this.form.value)
   }
 
   getValue(event: Event): string {
@@ -115,7 +166,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   OnFileSelect(files) {
-
+    console.log('files', files)
   }
 
   onSectionChange(sectionId: string) {
@@ -148,6 +199,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         length: new FormControl(this.selectedEntity.length),
         weight: new FormControl(this.selectedEntity.weight),
         disableBuyButton: new FormControl(this.selectedEntity.disableBuyButton || false),
+        description: new FormControl(this.selectedEntity.description)
       }
     )
   }

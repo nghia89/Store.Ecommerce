@@ -46,9 +46,10 @@ export interface CreateUpdateSpecificationAttributeDto {
 export interface CreateUpdateSpecificationAttributeOptionDto {
   name?: string;
   alias?: string;
-  description?: string;
   sortOrder: number;
   showOnProductPage: boolean;
+  color?: string;
+  specificationAttributeId: number;
 }
 
 export interface ProductAttributeDto {

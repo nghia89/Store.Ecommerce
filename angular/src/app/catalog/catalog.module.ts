@@ -31,6 +31,7 @@ import { SpecificationAttributeComponent } from './specification-attribute/speci
 import { SpecificationAttributeDetailComponent } from './specification-attribute/specification-attribute-detail/specification-attribute-detail.component';
 import { SpecificationAttributeOptionComponent } from "./specification-attribute/specification-attribute-detail/specification-attribute-option.component";
 import { TagModule } from 'primeng/tag';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -64,7 +65,8 @@ import { TagModule } from 'primeng/tag';
         FileUploadModule,
         TableModule,
         CardModule,
-        TagModule
+        TagModule,
+        DropdownModule
     ],
     entryComponents: [CategoryDetailComponent, SpecificationAttributeOptionComponent]
 })

@@ -45,6 +45,14 @@ export class SpecificationAttributeService {
     { apiName: this.apiName,...config });
   
 
+  getListAll = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, SpecificationAttributeDto[]>({
+      method: 'GET',
+      url: '/api/app/specification-attribute/all',
+    },
+    { apiName: this.apiName,...config });
+  
+
   getListFilter = (input: BaseListFilterDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, PagedResultDto<SpecificationAttributeDto>>({
       method: 'GET',

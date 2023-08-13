@@ -31,6 +31,13 @@ export interface CreateUpdateProductDto {
   disableBuyButton: boolean;
 }
 
+export interface CreateUpdateProductSpecificationAttributeDto {
+  specificationAttributeOptionId: number;
+  productId?: string;
+  showOnProductPage?: boolean;
+  sortOrder: number;
+}
+
 export interface ProductDto {
   id?: string;
   name?: string;
@@ -81,4 +88,12 @@ export interface ProductInListDto extends EntityDto<string> {
 
 export interface ProductListFilterDto extends BaseListFilterDto {
   categoryId?: number;
+}
+
+export interface ProductSpecificationAttributeDto {
+  id: number;
+  specificationAttributeOptionId: number;
+  productId?: string;
+  showOnProductPage?: boolean;
+  sortOrder: number;
 }

@@ -33,6 +33,14 @@ namespace Store.Ecommerce.Catalog.Attributes
 
             return new PagedResultDto<SpecificationAttributeDto>(totalCount, ObjectMapper.Map<List<SpecificationAttribute>, List<SpecificationAttributeDto>>(data));
         }
+
+        public async Task<List<SpecificationAttributeDto>> GetListAllAsync()
+        {
+            var query = await Repository.GetQueryableAsync();
+            var data = await AsyncExecuter.ToListAsync(query);
+
+            return ObjectMapper.Map<List<SpecificationAttribute>, List<SpecificationAttributeDto>>(data);
+        }
     }
 }
 

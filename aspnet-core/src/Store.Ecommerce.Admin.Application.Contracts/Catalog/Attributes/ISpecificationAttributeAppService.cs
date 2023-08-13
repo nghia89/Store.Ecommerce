@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Store.Ecommerce.Catalog.Products;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-
+using System.Collections.Generic;
 namespace Store.Ecommerce.Catalog.Attributes
 {
     public interface ISpecificationAttributeAppService : ICrudAppService
@@ -15,6 +15,7 @@ namespace Store.Ecommerce.Catalog.Attributes
         CreateUpdateSpecificationAttributeDto>
     {
         Task<PagedResultDto<SpecificationAttributeDto>> GetListFilterAsync(BaseListFilterDto input);
+        Task<List<SpecificationAttributeDto>> GetListAllAsync();
     }
 
 }

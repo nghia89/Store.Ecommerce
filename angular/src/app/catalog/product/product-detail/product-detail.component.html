@@ -80,6 +80,43 @@
                 </div>
                 <div class="pb-2" id="section2">
                     <p-card header="Thông tin chi tiết" [styleClass]>
+                        <h5>Chỉ định một thuộc tính đặc tả</h5>
+                        <div class="row">
+                            <div class="field  col-12">
+                                <label for="name" class="block">Thuộc tính</label>
+                                <p-dropdown [options]="dataSpecificationAttribute"
+                                    (onChange)="onchangeSpecification($event)"
+                                    [(ngModel)]="selectedSpecificationAttribute" optionLabel="name" [filter]="true"
+                                    filterBy="name" [showClear]="true" placeholder="Vui lòng chọn thuộc tính">
+                                    <ng-template pTemplate="selectedItem">
+                                        <div class="flex align-items-center gap-2"
+                                            *ngIf="selectedSpecificationAttribute">
+                                            <div>{{ selectedSpecificationAttribute.name }}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-specificationAttribute pTemplate="item">
+                                        <div class="flex align-items-center gap-2">
+                                            <div>{{ specificationAttribute.name }}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                            <div class="field  col-12">
+                                <label for="name" class="block">Tùy chọn thuộc tính</label>
+                                <p-dropdown [options]="dataSpecificationAttributeOption"
+                                    [(ngModel)]="selectedSPAttributeOption" optionLabel="name" [filter]="true"
+                                    filterBy="name" [showClear]="true" placeholder="Vui lòng chọn thuộc tính">
+                                    <ng-template let-specificationAttributeOption pTemplate="item">
+                                        <div class="flex align-items-center gap-2">
+                                            <div>{{ specificationAttributeOption.name }}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                            <div class="col-3">
+                                <p-button label="Thêm thuộc tính" icon="pi pi-plus" styleClass="p-button"></p-button>
+                            </div>
+                        </div>
 
                     </p-card>
                 </div>
@@ -100,5 +137,16 @@
                     icon="fa fa-save" iconPos="left" label="Lưu lại"></button>
             </div> -->
         </form>
+    </div>
+    <div class="fix-container fixed-bottom">
+        <div class="p-3 flex justify-content-center">
+            <p-button label="Huỷ" styleClass="p-button-raised p-button-text"></p-button>
+            <div class='px-3'></div>
+
+            <p-button *ngIf="!productId" label="Thêm mới" [loading]="btnDisabled" loadingIcon="pi pi-bell"
+                (onClick)="saveChange()"></p-button>
+            <p-button *ngIf="productId" label="Cập nhật" [loading]="btnDisabled" loadingIcon="pi pi-bell"
+                (onClick)="saveChange()"></p-button>
+        </div>
     </div>
 </div>
