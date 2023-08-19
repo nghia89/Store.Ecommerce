@@ -66,7 +66,7 @@ export class SpecificationAttributeDetailComponent implements OnInit {
 
   getDataAttributeOption(attributeId) {
     if (attributeId) {
-      this.specificationAttributeOptionService.getList(this.param).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      this.specificationAttributeOptionService.getListPaging(attributeId, this.param).pipe(takeUntil(this.ngUnsubscribe)).subscribe({
         next: (rsp) => {
           this.dataAttributeOption = rsp.items
           this.totalCount = rsp.totalCount

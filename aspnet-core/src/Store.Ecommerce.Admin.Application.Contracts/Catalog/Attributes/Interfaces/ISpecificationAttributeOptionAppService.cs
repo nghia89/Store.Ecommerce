@@ -16,6 +16,7 @@ namespace Store.Ecommerce.Catalog.Attributes
         CreateUpdateSpecificationAttributeOptionDto>
     {
         Task<List<SpecificationAttributeOptionDto>> GetListFilterAsync(int specificationAttributeId, string keyword);
+        Task<PagedResultDto<SpecificationAttributeOptionDto>> GetListPagingAsync(int specificationAttributeId, BaseListFilterDto input);
     }
 
 }

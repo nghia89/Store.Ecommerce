@@ -3197,6 +3197,31 @@
                   }
                 },
                 {
+                  "name": "GetListPagingAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "specificationAttributeId",
+                      "typeAsString": "System.Int32, System.Private.CoreLib",
+                      "type": "System.Int32",
+                      "typeSimple": "number",
+                      "isOptional": false,
+                      "defaultValue": null
+                    },
+                    {
+                      "name": "input",
+                      "typeAsString": "Store.Ecommerce.BaseListFilterDto, Store.Ecommerce.Admin.Application.Contracts",
+                      "type": "Store.Ecommerce.BaseListFilterDto",
+                      "typeSimple": "Store.Ecommerce.BaseListFilterDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Volo.Abp.Application.Dtos.PagedResultDto<Store.Ecommerce.Catalog.Attributes.SpecificationAttributeOptionDto>",
+                    "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Store.Ecommerce.Catalog.Attributes.SpecificationAttributeOptionDto>"
+                  }
+                },
+                {
                   "name": "GetAsync",
                   "parametersOnMethod": [
                     {
@@ -3346,6 +3371,87 @@
               "returnValue": {
                 "type": "System.Collections.Generic.List<Store.Ecommerce.Catalog.Attributes.SpecificationAttributeOptionDto>",
                 "typeSimple": "[Store.Ecommerce.Catalog.Attributes.SpecificationAttributeOptionDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Store.Ecommerce.Catalog.Attributes.ISpecificationAttributeOptionAppService"
+            },
+            "GetListPagingAsyncBySpecificationAttributeIdAndInput": {
+              "uniqueName": "GetListPagingAsyncBySpecificationAttributeIdAndInput",
+              "name": "GetListPagingAsync",
+              "httpMethod": "GET",
+              "url": "api/app/specification-attribute-option/paging/{specificationAttributeId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "specificationAttributeId",
+                  "typeAsString": "System.Int32, System.Private.CoreLib",
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "Store.Ecommerce.BaseListFilterDto, Store.Ecommerce.Admin.Application.Contracts",
+                  "type": "Store.Ecommerce.BaseListFilterDto",
+                  "typeSimple": "Store.Ecommerce.BaseListFilterDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "specificationAttributeId",
+                  "name": "specificationAttributeId",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Keyword",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<Store.Ecommerce.Catalog.Attributes.SpecificationAttributeOptionDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Store.Ecommerce.Catalog.Attributes.SpecificationAttributeOptionDto>"
               },
               "allowAnonymous": null,
               "implementFrom": "Store.Ecommerce.Catalog.Attributes.ISpecificationAttributeOptionAppService"

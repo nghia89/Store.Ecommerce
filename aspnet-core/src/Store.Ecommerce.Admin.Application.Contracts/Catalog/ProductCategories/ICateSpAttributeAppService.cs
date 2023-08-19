@@ -11,10 +11,10 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         CategorySpecificationAttributeDto,
         int,
         PagedResultRequestDto,
-        CeateUpdateCateSpeAttributeDto,
-        CeateUpdateCateSpeAttributeDto>
+        CreateUpdateCateSpeAttributeDto,
+        CreateUpdateCateSpeAttributeDto>
     {
-        //Task<List<ProductCategoryInListDto>> GetByCateId();
+        Task<List<CategorySpecificationAttributeDto>> GetListByCategoryId(int categoryId);
     }
 }
- 
+

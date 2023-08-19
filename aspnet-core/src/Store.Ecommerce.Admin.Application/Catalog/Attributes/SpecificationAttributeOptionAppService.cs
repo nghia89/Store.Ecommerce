@@ -28,10 +28,22 @@ namespace Store.Ecommerce.Catalog.Attributes
         {
             var query = await Repository.GetQueryableAsync();
             query = query.WhereIf(!string.IsNullOrWhiteSpace(keyword), x => x.Name.Contains(keyword));
-            query = query.WhereIf(!string.IsNullOrWhiteSpace(keyword), x => x.SpecificationAttributeId == specificationAttributeId);
-
+            query = query.Where(x => x.SpecificationAttributeId == specificationAttributeId);
             var data = await AsyncExecuter.ToListAsync(query);
+
             return ObjectMapper.Map<List<SpecificationAttributeOption>, List<SpecificationAttributeOptionDto>>(data);
+        }
+
+        public async Task<PagedResultDto<SpecificationAttributeOptionDto>> GetListPagingAsync(int specificationAttributeId, BaseListFilterDto input)
+        {
+            var query = await Repository.GetQueryableAsync();
+            query = query.Where(x => x.SpecificationAttributeId == specificationAttributeId);
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(input.Keyword), x => x.Name.Contains(input.Keyword));
+
+            var totalCount = await AsyncExecuter.LongCountAsync(query);
+            var data = await AsyncExecuter.ToListAsync(query.Skip(input.SkipCount).Take(input.MaxResultCount));
+
+            return new PagedResultDto<SpecificationAttributeOptionDto>(totalCount, ObjectMapper.Map<List<SpecificationAttributeOption>, List<SpecificationAttributeOptionDto>>(data));
         }
     }
 }

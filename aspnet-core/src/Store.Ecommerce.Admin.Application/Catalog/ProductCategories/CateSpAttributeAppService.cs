@@ -11,6 +11,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Linq;
 using Volo.Abp.ObjectMapping;
 
 namespace Store.Ecommerce.Catalog.ProductCategories
@@ -20,17 +21,21 @@ namespace Store.Ecommerce.Catalog.ProductCategories
         CategorySpecificationAttributeDto,
         int,
         PagedResultRequestDto,
-        CeateUpdateCateSpeAttributeDto,
-        CeateUpdateCateSpeAttributeDto>, ICateSpAttributeAppService
+        CreateUpdateCateSpeAttributeDto,
+        CreateUpdateCateSpeAttributeDto>, ICateSpAttributeAppService
     {
         public CateSpAttributeAppService(IRepository<CategorySpecification, int> repository) : base(repository)
         {
 
         }
 
-        // public async Task<List<ProductCategoryInListDto>> GetByCateId(int cateId)
-        // {
-        //   var data = await  Repository.FindAsync<ProductCategoryInListDto>(cateId);
-        // }
+        public async Task<List<CategorySpecificationAttributeDto>> GetListByCategoryId(int categoryId)
+        {
+            var query = await Repository.GetQueryableAsync();
+            query = query.Where(x => x.CategoryId == categoryId);
+            var data = await AsyncExecuter.ToListAsync(query);
+
+            return ObjectMapper.Map<List<CategorySpecification>, List<CategorySpecificationAttributeDto>>(data);
+        }
     }
 }

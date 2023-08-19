@@ -149,6 +149,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   onchangeSpecification(e) {
     this.selectedSpecificationAttribute = e.value
     this.selectedSPAttributeOption = null
+    this.dataSpecificationAttributeOption = []
     if (e && e.value)
       this.getAllSpecificationOption(e.value.id)
   }

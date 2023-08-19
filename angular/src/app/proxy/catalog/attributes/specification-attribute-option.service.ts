@@ -2,6 +2,7 @@ import type { CreateUpdateSpecificationAttributeOptionDto, SpecificationAttribut
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedResultDto, PagedResultRequestDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
+import type { BaseListFilterDto } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +50,15 @@ export class SpecificationAttributeOptionService {
       method: 'GET',
       url: `/api/app/specification-attribute-option/filter/${specificationAttributeId}`,
       params: { keyword },
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getListPaging = (specificationAttributeId: number, input: BaseListFilterDto, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, PagedResultDto<SpecificationAttributeOptionDto>>({
+      method: 'GET',
+      url: `/api/app/specification-attribute-option/paging/${specificationAttributeId}`,
+      params: { keyword: input.keyword, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
     },
     { apiName: this.apiName,...config });
   
