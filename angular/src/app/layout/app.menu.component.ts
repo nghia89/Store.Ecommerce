@@ -37,16 +37,27 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Tất cả sản phẩm',
                                 //icon: 'pi pi-fw pi-sign-in',
                                 routerLink: ['/catalog/product']
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Quản thuộc tính',
+                        icon: 'pi pi-fw pi-user',
+                        items: [
                             {
                                 label: 'Đặc tính sản phẩm',
                                 //icon: 'pi pi-fw pi-times-circle',
                                 routerLink: ['/catalog/specification-attribute']
+                            },
+                            {
+                                label: 'Đặc tính sản phẩm theo danh mục',
+                                //icon: 'pi pi-fw pi-sign-in',
+                                routerLink: ['/catalog/category-specification']
                             }
                         ]
                     }
                 ]
-            },
+            }
         ];
     }
 }

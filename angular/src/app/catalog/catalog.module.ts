@@ -32,6 +32,8 @@ import { SpecificationAttributeDetailComponent } from './specification-attribute
 import { SpecificationAttributeOptionComponent } from "./specification-attribute/specification-attribute-detail/specification-attribute-option.component";
 import { TagModule } from 'primeng/tag';
 import { DropdownModule } from 'primeng/dropdown';
+import { CategorySpecificationDetailComponent } from "./category-specification/category-specification-detail/category-specification-detail.component";
+import { CategorySpecificationComponent } from "./category-specification/category-specification.component";
 @NgModule({
     declarations: [
         CategoryDetailComponent,
@@ -40,7 +42,10 @@ import { DropdownModule } from 'primeng/dropdown';
         ProductDetailComponent,
         SpecificationAttributeComponent,
         SpecificationAttributeDetailComponent,
-        SpecificationAttributeOptionComponent
+        SpecificationAttributeOptionComponent,
+        CategorySpecificationComponent,
+        CategorySpecificationDetailComponent,
+
     ],
     imports: [
         FormsModule,

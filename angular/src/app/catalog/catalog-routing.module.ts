@@ -6,6 +6,8 @@ import { ProductComponent } from "./product/product.component";
 import { ProductDetailComponent } from "./product/product-detail/product-detail.component";
 import { SpecificationAttributeComponent } from "./specification-attribute/specification-attribute.component";
 import { SpecificationAttributeDetailComponent } from "./specification-attribute/specification-attribute-detail/specification-attribute-detail.component";
+import { CategorySpecificationComponent } from "./category-specification/category-specification.component";
+import { CategorySpecificationDetailComponent } from "./category-specification/category-specification-detail/category-specification-detail.component";
 
 
 const routes: Routes = [
@@ -44,6 +46,21 @@ const routes: Routes = [
         component: SpecificationAttributeDetailComponent,
         canActivate: [PermissionGuard],
     },
+    {
+        path: 'category-specification',
+        component: CategorySpecificationComponent,
+        canActivate: [PermissionGuard]
+    },
+    {
+        path: 'category-specification/new',
+        component: CategorySpecificationDetailComponent,
+        canActivate: [PermissionGuard]
+    },
+    {
+        path: 'category-specification/:id/edit',
+        component: CategorySpecificationDetailComponent,
+        canActivate: [PermissionGuard],
+    }
 ]
 
 @NgModule({
